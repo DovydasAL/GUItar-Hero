@@ -19,10 +19,6 @@ public class Song {
 
     private static HashMap<Integer, String> noteMap = new HashMap<>();
 
-
-    public static final int ON = 0x90;
-    public static final int OFF = 0x80;
-
     public Song(String name, String artist) {
         if (noteMap.isEmpty()) {
             noteMap.put(96, "G");
