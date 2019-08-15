@@ -1,5 +1,6 @@
 package com.guitarhero;
 
+import com.guitarhero.component.PlayComponent;
 import com.guitarhero.entity.Song;
 
 import javax.swing.*;
@@ -10,45 +11,11 @@ public class Main {
 
     private static final Dimension dimensions = new Dimension(1400,800);
 
-    public static void createPlayComponent(JPanel screen) {
-        screen.setLayout(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.fill = GridBagConstraints.NONE;
-        JLabel songName = new JLabel("Song: ", SwingConstants.LEFT);
-        JLabel artist = new JLabel("Artist: ", SwingConstants.LEFT);
-        JLabel genre = new JLabel("Genre: ", SwingConstants.LEFT);
-        JLabel highScore = new JLabel("Highscore: ", SwingConstants.LEFT);
-        JLabel image = new JLabel(new ImageIcon("resources/test.png"), SwingConstants.LEFT);
 
-        Font font = songName.getFont().deriveFont(18.0f);
-        songName.setFont(font);
-        artist.setFont(font);
-        genre.setFont(font);
-        highScore.setFont(font);
-        constraints.weightx = 0.3;
-        constraints.weighty = 0.3;
-        constraints.ipadx = 20;
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        constraints.gridheight = 4;
-        constraints.anchor = GridBagConstraints.EAST;
-        screen.add(image, constraints);
-        constraints.anchor = GridBagConstraints.WEST;
-        constraints.gridheight = 1;
-        constraints.gridx = 1;
-        constraints.gridy = 0;
-        screen.add(songName, constraints);
-        constraints.gridy = 1;
-        screen.add(artist, constraints);
-        constraints.gridy = 2;
-        screen.add(genre, constraints);
-        constraints.gridy = 3;
-        screen.add(highScore, constraints);
-    }
 
     public static void createComponents(JPanel screen) {
         JPanel playPanel = new JPanel();
-        createPlayComponent(playPanel);
+        PlayComponent.createPlayComponent(playPanel);
         screen.add(playPanel);
     }
 

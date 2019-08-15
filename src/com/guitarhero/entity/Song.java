@@ -19,7 +19,7 @@ public class Song {
     private Genre genre;
     private Note firstNote;
     private Integer highScore;
-    private File file = new File("resources/test.png");
+    private String path = "resources/test.png";
 
     private static final String green = "G";
     private static final String red = "R";
@@ -56,6 +56,10 @@ public class Song {
 
     public Integer getHighScore() {
         return highScore;
+    }
+
+    public String getFile() {
+        return path;
     }
 
     public void setFirstNote(Note firstNote) {
