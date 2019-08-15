@@ -3,6 +3,7 @@ package com.guitarhero.component;
 import com.guitarhero.entity.Song;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.io.File;
 
@@ -36,6 +37,10 @@ public class PlayComponent {
         JLabel genreLabel = new JLabel("Genre: " + genre, SwingConstants.LEFT);
         JLabel highScoreLabel = new JLabel("Highscore: " + highscore.toString(), SwingConstants.LEFT);
         JLabel imageLabel = new JLabel(new ImageIcon(path), SwingConstants.LEFT);
+        JButton playButton = new JButton("Play", new ImageIcon("resources/icons/play_guitar.png"));
+        Border border = BorderFactory.createEmptyBorder();
+        playButton.setBorder(border);
+        playButton.setFocusPainted(false);
 
         Font font = songNameLabel.getFont().deriveFont(18.0f);
         songNameLabel.setFont(font);
@@ -47,7 +52,7 @@ public class PlayComponent {
         constraints.ipadx = 20;
         constraints.gridx = 0;
         constraints.gridy = 0;
-        constraints.gridheight = 4;
+        constraints.gridheight = 5;
         constraints.anchor = GridBagConstraints.EAST;
         screen.add(imageLabel, constraints);
         constraints.anchor = GridBagConstraints.WEST;
@@ -61,6 +66,8 @@ public class PlayComponent {
         screen.add(genreLabel, constraints);
         constraints.gridy = 3;
         screen.add(highScoreLabel, constraints);
+        constraints.gridy = 4;
+        screen.add(playButton, constraints);
     }
 
 
