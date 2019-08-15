@@ -1,15 +1,25 @@
 package com.guitarhero.entity;
 
+import javax.imageio.ImageIO;
 import javax.sound.midi.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Song {
+
+    public enum Genre {
+        ROCK, HIP_HOP, COUNTRY, METAL
+    }
+
     private String name;
     private String artist;
+    private Genre genre;
     private Note firstNote;
+    private Integer highScore;
+    private File file = new File("resources/test.png");
 
     private static final String green = "G";
     private static final String red = "R";
@@ -19,7 +29,7 @@ public class Song {
 
     private static HashMap<Integer, String> noteMap = new HashMap<>();
 
-    public Song(String name, String artist) {
+    public Song(String name, String artist, Genre genre) {
         if (noteMap.isEmpty()) {
             noteMap.put(96, "G");
             noteMap.put(97, "R");
@@ -29,6 +39,7 @@ public class Song {
         }
         this.name = name;
         this.artist = artist;
+        this.genre = genre;
     }
 
     public String getName() {
@@ -37,6 +48,14 @@ public class Song {
 
     public String getArtist() {
         return artist;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public Integer getHighScore() {
+        return highScore;
     }
 
     public void setFirstNote(Note firstNote) {
@@ -59,8 +78,8 @@ public class Song {
         return track;
     }
 
-    public static Song constructSong(String name, String artist, File file) {
-        Song song = new Song(name, artist);
+    public static Song constructSong(String name, String artist, Genre genre, File file) {
+        Song song = new Song(name, artist, genre);
         Sequence sequence;
         try {
             sequence = MidiSystem.getSequence(file);
