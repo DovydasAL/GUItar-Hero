@@ -42,6 +42,7 @@ public class Main {
     public static void main(String[] args) {
         //Make frame non-resizable
         JFrame frame = new JFrame("GUItar Hero");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         Container container = frame.getContentPane();
         mainScreen = new JPanel();

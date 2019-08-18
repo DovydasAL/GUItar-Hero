@@ -26,7 +26,7 @@ public class SongList {
     
     public static void initializeSongs() {
         File file = new File("resources/songs/Ransom.mid");
-        Song song = Song.constructSong("Ransom", "Lil Tecca", Song.Genre.HIP_HOP, file, "resources/songs/Ransom.jpg");
+        Song song = Song.constructSong("Ransom", "Lil Tecca", Song.Genre.HIP_HOP, "resources/songs/Ransom.jpg", file, "resources/songs/Ransom.wav");
         songMap.put("Ransom", song);
     }
 
