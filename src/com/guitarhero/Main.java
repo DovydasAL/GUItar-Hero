@@ -41,6 +41,7 @@ public class Main {
 
     public static void main(String[] args) {
         //Make frame non-resizable
+        SongList.initializeSongs();
         JFrame frame = new JFrame("GUItar Hero");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
@@ -57,6 +58,5 @@ public class Main {
         container.add(mainScreen);
         frame.pack();
         frame.setVisible(true);
-        SongList.initializeSongs();
     }
 }

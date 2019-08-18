@@ -13,7 +13,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 public class SongList {
 
@@ -36,10 +38,16 @@ public class SongList {
         list.setPreferredSize(new Dimension(300,600));
         list.setBorder(new EmptyBorder(20,20,20,20));
         list.setBackground(Color.GRAY);
-        JButton test = new JButton("Title, Artist, Genre");
-        test.setActionCommand("Ransom");
-        test.addActionListener(new SongButtonListener());
-        list.add(test);
+        Set<String> stringSet = songMap.keySet();
+        Iterator it = stringSet.iterator();
+        while (it.hasNext()) {
+            String songName = (String) it.next();
+            Song song = songMap.get(songName);
+            JButton button = new JButton(song.getName() + "  -  " + song.getArtist() + "  -  " + song.getGenre());
+            button.addActionListener(new SongButtonListener());
+            button.setActionCommand(songName);
+            list.add(button);
+        }
         
         //lscroller = new JScrollPane(list);
         //lscroller.setPreferredSize(new Dimension(300,300));
