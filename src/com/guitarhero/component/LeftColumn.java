@@ -24,20 +24,21 @@ public class LeftColumn {
     }*/
 
     public static void createLeftColumn(JPanel bar) {
-        bar.setLayout(new BorderLayout());
+        bar.setLayout(new BoxLayout(bar, BoxLayout.Y_AXIS));
         bar.setPreferredSize(new Dimension(500,650));
         bar.setBackground(Color.GRAY);
         
         JLabel fields = new JLabel("Name        Artist       Genre");
-        bar.add(fields, BorderLayout.NORTH);
+        fields.setAlignmentX(Component.LEFT_ALIGNMENT);
+        bar.add(fields);
         
         JPanel list = new JPanel();
         SongList.createSongList(list);
-        bar.add(list, BorderLayout.CENTER);
+        bar.add(list);
         
         JPanel player = new JPanel();
         PlayComponent.createPlayComponent(player);
-        bar.add(player, BorderLayout.SOUTH);
+        bar.add(player);
         
         
         

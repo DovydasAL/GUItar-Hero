@@ -30,6 +30,7 @@ public class PlayComponent {
 
     public static void createPlayComponent(JPanel screen) {
         screen.setLayout(new GridBagLayout());
+        screen.setAlignmentX(Component.LEFT_ALIGNMENT);
         screen.setPreferredSize(new Dimension(300,250));
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.fill = GridBagConstraints.NONE;
