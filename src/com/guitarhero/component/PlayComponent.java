@@ -32,8 +32,7 @@ public class PlayComponent {
     public static void createPlayComponent(JPanel screen) {
         screen.setLayout(new BoxLayout(screen, BoxLayout.X_AXIS));
         screen.setPreferredSize(new Dimension(300,150));
-//        GridBagConstraints constraints = new GridBagConstraints();
-//        constraints.fill = GridBagConstraints.NONE;
+        screen.setAlignmentX(Component.LEFT_ALIGNMENT);
         JLabel songNameLabel = new JLabel("Song: " + songName, SwingConstants.LEFT);
         JLabel artistLabel = new JLabel("Artist: " + artist, SwingConstants.LEFT);
         JLabel genreLabel = new JLabel("Genre: " + genre, SwingConstants.LEFT);
@@ -61,26 +60,6 @@ public class PlayComponent {
         rightPanel.add(highScoreLabel);
         rightPanel.add(playButton);
         screen.add(rightPanel);
-//        constraints.weightx = 0.3;
-//        constraints.weighty = 0.3;
-//        constraints.gridx = 0;
-//        constraints.gridy = 0;
-//        constraints.gridheight = 5;
-//        constraints.anchor = GridBagConstraints.NORTHWEST;
-//        screen.add(imageLabel, constraints);
-//        constraints.anchor = GridBagConstraints.WEST;
-//        constraints.gridheight = 1;
-//        constraints.gridx = 1;
-//        constraints.gridy = 0;
-//        screen.add(songNameLabel, constraints);
-//        constraints.gridy = 1;
-//        screen.add(artistLabel, constraints);
-//        constraints.gridy = 2;
-//        screen.add(genreLabel, constraints);
-//        constraints.gridy = 3;
-//        screen.add(highScoreLabel, constraints);
-//        constraints.gridy = 4;
-//        screen.add(playButton, constraints);
     }
 
 
