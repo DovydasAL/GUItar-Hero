@@ -9,7 +9,7 @@ import java.io.File;
 
 public class Main {
 
-    private static final Dimension dimensions = new Dimension(1400,800);
+    private static final Dimension dimensions = new Dimension(1200,800);
     private static JPanel mainScreen;
     private static GridBagConstraints c;
 
