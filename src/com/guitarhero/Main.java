@@ -16,13 +16,16 @@ public class Main {
     public static void createComponents() {
         JPanel leftcol = new JPanel();
         LeftColumn.createLeftColumn(leftcol);
-        //PlayComponent.createPlayComponent(playPanel);
+        JPanel game = new JPanel();
+        GamePanel.createGamePanel(game);
         c.gridx = 0;
         c.gridy = 0;
         c.anchor = GridBagConstraints.NORTHWEST;
         c.weighty = 1;
         c.weightx = 1;
         mainScreen.add(leftcol,c);
+        c.weightx = 2;
+        mainScreen.add(game);
     }
 
     public static void createMenuBar(JFrame frame) {
