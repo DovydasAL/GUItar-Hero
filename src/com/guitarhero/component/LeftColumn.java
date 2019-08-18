@@ -14,17 +14,6 @@ public class LeftColumn {
 
     }
 
-<<<<<<< HEAD
-=======
-    /*public static void changeSong(Song song) {
-        songName = song.getName();
-        artist = song.getArtist();
-        genre = song.getGenre().toString().replace("_", " ");
-        genre = genre.replace(genre.charAt(0), Character.toUpperCase(genre.charAt(0)));
-        highscore = song.getHighScore();
-        path = song.getMidFile();
-    }*/
->>>>>>> cce30755faec1fda05083ca60c3d151b3081ce4b
 
     public static void createLeftColumn(JPanel bar) {
         bar.setLayout(new BoxLayout(bar, BoxLayout.Y_AXIS));
