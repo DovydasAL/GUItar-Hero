@@ -2,14 +2,11 @@ package com.guitarhero.component;
 
 import com.guitarhero.entity.Song;
 
-import javax.print.attribute.standard.Media;
 import javax.sound.sampled.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class PlayComponent {
 
@@ -33,7 +30,7 @@ public class PlayComponent {
         highscore = song.getHighScore();
         path = song.getImage();
         updateText();
-        playSong(song.getMp3File());
+        playSong(song.getWavFile());
     }
 
     public static void playSong(String file) {

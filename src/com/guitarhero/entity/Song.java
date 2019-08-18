@@ -17,7 +17,7 @@ public class Song {
     private Note firstNote;
     private Integer highScore = 0;
     private File midFile = null;
-    private String mp3File = null;
+    private String wavFile = null;
     private String image = "resources/test.png";
 
     private static final String green = "G";
@@ -41,7 +41,7 @@ public class Song {
         this.genre = genre;
         this.image = image;
         this.midFile = midFile;
-        this.mp3File = mp3File;
+        this.wavFile = mp3File;
     }
 
     public String getName() {
@@ -68,8 +68,8 @@ public class Song {
         return midFile;
     }
 
-    public String getMp3File() {
-        return mp3File;
+    public String getWavFile() {
+        return wavFile;
     }
 
     public String getImage() {
