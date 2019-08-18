@@ -31,7 +31,7 @@ public class PlayComponent {
 
     public static void createPlayComponent(JPanel screen) {
         screen.setLayout(new BoxLayout(screen, BoxLayout.X_AXIS));
-        screen.setPreferredSize(new Dimension(300,150));
+        screen.setPreferredSize(new Dimension(500,150));
         screen.setAlignmentX(Component.LEFT_ALIGNMENT);
         JLabel songNameLabel = new JLabel("Song: " + songName, SwingConstants.LEFT);
         JLabel artistLabel = new JLabel("Artist: " + artist, SwingConstants.LEFT);
@@ -41,7 +41,6 @@ public class PlayComponent {
         artistLabel.setBorder(new EmptyBorder(10,0,0,0));
         genreLabel.setBorder(new EmptyBorder(10,0,0,0));
         highScoreLabel.setBorder(new EmptyBorder(10,0,0,0));
-        imageLabel.setBorder(new EmptyBorder(10,0,0,0));
         JButton playButton = new JButton("Play", new ImageIcon("resources/icons/play_guitar.png"));
         playButton.setFocusPainted(false);
         Font font = songNameLabel.getFont().deriveFont(14.0f);
@@ -52,6 +51,7 @@ public class PlayComponent {
         playButton.setFont(font);
         screen.add(imageLabel);
         JPanel rightPanel = new JPanel();
+        rightPanel.add(Box.createHorizontalGlue());
         rightPanel.setBorder(new EmptyBorder(0,20,0,0));
         rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
         rightPanel.add(songNameLabel);
@@ -59,6 +59,7 @@ public class PlayComponent {
         rightPanel.add(genreLabel);
         rightPanel.add(highScoreLabel);
         rightPanel.add(playButton);
+        screen.add(Box.createVerticalGlue());
         screen.add(rightPanel);
     }
 
