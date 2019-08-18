@@ -34,7 +34,7 @@ public class SongList {
 
     public static void createSongList(JPanel list) {
     	list.setLayout(new BoxLayout(list, BoxLayout.Y_AXIS));
-    	list.setAlignmentX(Component.CENTER_ALIGNMENT);
+    	list.setAlignmentX(Component.LEFT_ALIGNMENT);
         list.setPreferredSize(new Dimension(300,600));
         list.setBorder(new EmptyBorder(20,20,20,20));
         list.setBackground(Color.GRAY);
@@ -43,7 +43,8 @@ public class SongList {
         while (it.hasNext()) {
             String songName = (String) it.next();
             Song song = songMap.get(songName);
-            JButton button = new JButton(song.getName() + "  -  " + song.getArtist() + "  -  " + song.getGenre());
+            JButton button = new JButton(song.getName() + "  -  " + song.getArtist());
+            button.setFont(button.getFont().deriveFont(18.0f));
             button.addActionListener(new SongButtonListener());
             button.setActionCommand(songName);
             list.add(button);

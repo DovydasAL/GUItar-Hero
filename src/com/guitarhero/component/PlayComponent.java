@@ -73,7 +73,7 @@ public class PlayComponent {
         highScoreLabel.setBorder(new EmptyBorder(10,0,10,0));
         JButton playButton = new JButton("Play", new ImageIcon("resources/icons/play_guitar.png"));
         playButton.setFocusPainted(false);
-        Font font = songNameLabel.getFont().deriveFont(14.0f);
+        Font font = songNameLabel.getFont().deriveFont(18.0f);
         songNameLabel.setFont(font);
         artistLabel.setFont(font);
         genreLabel.setFont(font);
