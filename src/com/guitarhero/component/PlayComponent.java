@@ -2,12 +2,14 @@ package com.guitarhero.component;
 
 import com.guitarhero.entity.Song;
 
+import javax.print.attribute.standard.Media;
+import javax.sound.sampled.*;
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.EtchedBorder;
 import java.awt.*;
-import java.io.File;
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class PlayComponent {
 
@@ -17,6 +19,7 @@ public class PlayComponent {
     private static Integer highscore = 0;
     private static String path = "resources/test.png";
     private static JPanel parent = null;
+    private static Clip clip = null;
 
     public PlayComponent() {
 
@@ -30,6 +33,23 @@ public class PlayComponent {
         highscore = song.getHighScore();
         path = song.getImage();
         updateText();
+        playSong(song.getMp3File());
+    }
+
+    public static void playSong(String file) {
+        if (clip != null && clip.isRunning()) {
+            clip.stop();
+        }
+        try {
+            File wavFile = new File(file);
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(wavFile);
+            clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+            return;
+        }
+
     }
 
     public static void updateText() {
@@ -39,7 +59,6 @@ public class PlayComponent {
         ((JLabel) rightPanel.getComponent(2)).setText("Genre: " + genre);
         ((JLabel) rightPanel.getComponent(3)).setText("Highscore: " + highscore);
         ((JLabel) parent.getComponent(0)).setIcon(new ImageIcon(path));
-
     }
 
     public static void createPlayComponent(JPanel screen) {

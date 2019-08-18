@@ -20,7 +20,7 @@ public class LeftColumn {
         genre = song.getGenre().toString().replace("_", " ");
         genre = genre.replace(genre.charAt(0), Character.toUpperCase(genre.charAt(0)));
         highscore = song.getHighScore();
-        path = song.getFile();
+        path = song.getMidFile();
     }*/
 
     public static void createLeftColumn(JPanel bar) {

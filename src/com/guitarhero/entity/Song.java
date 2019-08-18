@@ -1,12 +1,9 @@
 package com.guitarhero.entity;
 
-import javax.imageio.ImageIO;
 import javax.sound.midi.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Song {
 
@@ -19,7 +16,8 @@ public class Song {
     private Genre genre;
     private Note firstNote;
     private Integer highScore = 0;
-    private String path = "resources/test.png";
+    private File midFile = null;
+    private String mp3File = null;
     private String image = "resources/test.png";
 
     private static final String green = "G";
@@ -30,7 +28,7 @@ public class Song {
 
     private static HashMap<Integer, String> noteMap = new HashMap<>();
 
-    public Song(String name, String artist, Genre genre) {
+    public Song(String name, String artist, Genre genre, String image, File midFile, String mp3File) {
         if (noteMap.isEmpty()) {
             noteMap.put(96, "G");
             noteMap.put(97, "R");
@@ -41,6 +39,9 @@ public class Song {
         this.name = name;
         this.artist = artist;
         this.genre = genre;
+        this.image = image;
+        this.midFile = midFile;
+        this.mp3File = mp3File;
     }
 
     public String getName() {
@@ -63,8 +64,12 @@ public class Song {
         this.highScore = highScore;
     }
 
-    public String getFile() {
-        return path;
+    public File getMidFile() {
+        return midFile;
+    }
+
+    public String getMp3File() {
+        return mp3File;
     }
 
     public String getImage() {
@@ -95,12 +100,12 @@ public class Song {
         return track;
     }
 
-    public static Song constructSong(String name, String artist, Genre genre, File file, String image) {
-        Song song = new Song(name, artist, genre);
+    public static Song constructSong(String name, String artist, Genre genre, String image, File midFile, String mp3File) {
+        Song song = new Song(name, artist, genre, image, midFile, mp3File);
         song.setImage(image);
         Sequence sequence;
         try {
-            sequence = MidiSystem.getSequence(file);
+            sequence = MidiSystem.getSequence(midFile);
         } catch (InvalidMidiDataException | IOException e) {
             return null;
         }
