@@ -25,7 +25,8 @@ public class LeftColumn {
 
     public static void createLeftColumn(JPanel bar) {
         bar.setLayout(new BoxLayout(bar, BoxLayout.Y_AXIS));
-        bar.setPreferredSize(new Dimension(500,650));
+        bar.setPreferredSize(new Dimension(500,800));
+        bar.setAlignmentY(Component.TOP_ALIGNMENT);
         bar.setBackground(Color.GRAY);
         
         JLabel fields = new JLabel("Name        Artist       Genre");

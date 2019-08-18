@@ -24,7 +24,7 @@ public class SongList {
     public static void createSongList(JPanel list) {
     	list.setLayout(new BoxLayout(list, BoxLayout.Y_AXIS));
     	list.setAlignmentX(Component.LEFT_ALIGNMENT);
-        list.setPreferredSize(new Dimension(300,500));
+        list.setPreferredSize(new Dimension(300,550));
         list.setBorder(new EmptyBorder(20,20,20,20));
         list.setBackground(Color.GRAY);
         JButton test = new JButton("Title, Artist, Genre");
