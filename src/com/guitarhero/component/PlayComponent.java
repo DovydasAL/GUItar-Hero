@@ -16,6 +16,7 @@ public class PlayComponent {
     private static String genre = "";
     private static Integer highscore = 0;
     private static String path = "resources/test.png";
+    private static JPanel parent = null;
 
     public PlayComponent() {
 
@@ -27,13 +28,25 @@ public class PlayComponent {
         genre = song.getGenre().toString().replace("_", " ");
         genre = genre.replace(genre.charAt(0), Character.toUpperCase(genre.charAt(0)));
         highscore = song.getHighScore();
-        path = song.getFile();
+        path = song.getImage();
+        updateText();
+    }
+
+    public static void updateText() {
+        JPanel rightPanel = (JPanel) parent.getComponent(1);
+        ((JLabel) rightPanel.getComponent(0)).setText("Song: " + songName);
+        ((JLabel) rightPanel.getComponent(1)).setText("Artist: " + artist);
+        ((JLabel) rightPanel.getComponent(2)).setText("Genre: " + genre);
+        ((JLabel) rightPanel.getComponent(3)).setText("Highscore: " + highscore);
+        ((JLabel) parent.getComponent(0)).setIcon(new ImageIcon(path));
+
     }
 
     public static void createPlayComponent(JPanel screen) {
-        screen.setLayout(new BoxLayout(screen, BoxLayout.X_AXIS));
-        screen.setPreferredSize(new Dimension(500,200));
-        screen.setAlignmentX(Component.LEFT_ALIGNMENT);
+        parent = screen;
+        parent.setLayout(new BoxLayout(screen, BoxLayout.X_AXIS));
+        parent.setPreferredSize(new Dimension(500,200));
+        parent.setAlignmentX(Component.LEFT_ALIGNMENT);
         JLabel songNameLabel = new JLabel("Song: " + songName, SwingConstants.LEFT);
         JLabel artistLabel = new JLabel("Artist: " + artist, SwingConstants.LEFT);
         JLabel genreLabel = new JLabel("Genre: " + genre, SwingConstants.LEFT);
@@ -50,18 +63,18 @@ public class PlayComponent {
         genreLabel.setFont(font);
         highScoreLabel.setFont(font);
         playButton.setFont(font);
-        screen.add(imageLabel);
+        parent.add(imageLabel,0);
         JPanel rightPanel = new JPanel();
         rightPanel.add(Box.createHorizontalGlue());
         rightPanel.setBorder(new EmptyBorder(0,20,0,0));
         rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
-        rightPanel.add(songNameLabel);
-        rightPanel.add(artistLabel);
-        rightPanel.add(genreLabel);
-        rightPanel.add(highScoreLabel);
-        rightPanel.add(playButton);
-        screen.add(Box.createVerticalGlue());
-        screen.add(rightPanel);
+        rightPanel.add(songNameLabel, 0);
+        rightPanel.add(artistLabel, 1);
+        rightPanel.add(genreLabel, 2);
+        rightPanel.add(highScoreLabel,3 );
+        rightPanel.add(playButton, 4);
+        parent.add(Box.createVerticalGlue());
+        parent.add(rightPanel, 1);
     }
 
 

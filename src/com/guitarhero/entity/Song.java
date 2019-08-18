@@ -18,8 +18,9 @@ public class Song {
     private String artist;
     private Genre genre;
     private Note firstNote;
-    private Integer highScore;
+    private Integer highScore = 0;
     private String path = "resources/test.png";
+    private String image = "resources/test.png";
 
     private static final String green = "G";
     private static final String red = "R";
@@ -58,8 +59,20 @@ public class Song {
         return highScore;
     }
 
+    public void setHighScore(Integer highScore) {
+        this.highScore = highScore;
+    }
+
     public String getFile() {
         return path;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public void setFirstNote(Note firstNote) {
@@ -82,8 +95,9 @@ public class Song {
         return track;
     }
 
-    public static Song constructSong(String name, String artist, Genre genre, File file) {
+    public static Song constructSong(String name, String artist, Genre genre, File file, String image) {
         Song song = new Song(name, artist, genre);
+        song.setImage(image);
         Sequence sequence;
         try {
             sequence = MidiSystem.getSequence(file);

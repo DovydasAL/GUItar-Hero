@@ -1,11 +1,9 @@
 package com.guitarhero;
 
 import com.guitarhero.component.*;
-import com.guitarhero.entity.Song;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 
 public class Main {
 
@@ -55,8 +53,6 @@ public class Main {
         container.add(mainScreen);
         frame.pack();
         frame.setVisible(true);
-        File file = new File("../eof/Lil Tecca - Ransom/notes.mid");
-	    Song song = Song.constructSong("Ransom", "Lil Tecca", Song.Genre.HIP_HOP, file);
-	    System.out.println("Test");
+        SongList.initializeSongs();
     }
 }
