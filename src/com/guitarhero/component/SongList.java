@@ -34,7 +34,7 @@ public class SongList {
 
     public static void createSongList(JPanel list) {
     	list.setLayout(new BoxLayout(list, BoxLayout.Y_AXIS));
-    	list.setAlignmentX(Component.LEFT_ALIGNMENT);
+    	list.setAlignmentX(Component.CENTER_ALIGNMENT);
         list.setPreferredSize(new Dimension(300,600));
         list.setBorder(new EmptyBorder(20,20,20,20));
         list.setBackground(Color.GRAY);
@@ -48,6 +48,8 @@ public class SongList {
             button.setActionCommand(songName);
             list.add(button);
         }
+        
+        //Add jlist here
         
         //lscroller = new JScrollPane(list);
         //lscroller.setPreferredSize(new Dimension(300,300));
