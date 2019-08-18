@@ -5,6 +5,7 @@ import com.guitarhero.entity.Song;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.io.File;
 
@@ -31,7 +32,7 @@ public class PlayComponent {
 
     public static void createPlayComponent(JPanel screen) {
         screen.setLayout(new BoxLayout(screen, BoxLayout.X_AXIS));
-        screen.setPreferredSize(new Dimension(500,150));
+        screen.setPreferredSize(new Dimension(500,200));
         screen.setAlignmentX(Component.LEFT_ALIGNMENT);
         JLabel songNameLabel = new JLabel("Song: " + songName, SwingConstants.LEFT);
         JLabel artistLabel = new JLabel("Artist: " + artist, SwingConstants.LEFT);
@@ -40,7 +41,7 @@ public class PlayComponent {
         JLabel imageLabel = new JLabel(new ImageIcon(path), SwingConstants.LEFT);
         artistLabel.setBorder(new EmptyBorder(10,0,0,0));
         genreLabel.setBorder(new EmptyBorder(10,0,0,0));
-        highScoreLabel.setBorder(new EmptyBorder(10,0,0,0));
+        highScoreLabel.setBorder(new EmptyBorder(10,0,10,0));
         JButton playButton = new JButton("Play", new ImageIcon("resources/icons/play_guitar.png"));
         playButton.setFocusPainted(false);
         Font font = songNameLabel.getFont().deriveFont(14.0f);
