@@ -1,6 +1,6 @@
 package com.guitarhero;
 
-import com.guitarhero.component.PlayComponent;
+import com.guitarhero.component.*;
 import com.guitarhero.entity.Song;
 
 import javax.swing.*;
@@ -10,13 +10,21 @@ import java.io.File;
 public class Main {
 
     private static final Dimension dimensions = new Dimension(1400,800);
+    private static JPanel mainScreen;
+    private static GridBagConstraints c;
 
 
 
-    public static void createComponents(JPanel screen) {
-        JPanel playPanel = new JPanel();
-        PlayComponent.createPlayComponent(playPanel);
-        screen.add(playPanel);
+    public static void createComponents() {
+        JPanel leftcol = new JPanel();
+        LeftColumn.createLeftColumn(leftcol);
+        //PlayComponent.createPlayComponent(playPanel);
+        c.gridx = 0;
+        c.gridy = 0;
+        c.anchor = GridBagConstraints.NORTHWEST;
+        c.weighty = 0;
+        c.weightx = 1;
+        mainScreen.add(leftcol,c);
     }
 
     public static void createMenuBar(JFrame frame) {
@@ -35,12 +43,14 @@ public class Main {
         JFrame frame = new JFrame("GUItar Hero");
         frame.setResizable(false);
         Container container = frame.getContentPane();
-        JPanel mainScreen = new JPanel();
+        mainScreen = new JPanel();
+        mainScreen.setLayout(new GridBagLayout());
+        c = new GridBagConstraints();
         //Set preferred dimensions
         mainScreen.setPreferredSize(dimensions);
         createMenuBar(frame);
         //Call function to add components to the screen
-        createComponents(mainScreen);
+        createComponents();
         //Add screen to frame and make it visible
         container.add(mainScreen);
         frame.pack();

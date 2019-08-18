@@ -30,6 +30,7 @@ public class PlayComponent {
 
     public static void createPlayComponent(JPanel screen) {
         screen.setLayout(new GridBagLayout());
+        screen.setPreferredSize(new Dimension(300,250));
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.fill = GridBagConstraints.NONE;
         JLabel songNameLabel = new JLabel("Song: " + songName, SwingConstants.LEFT);
