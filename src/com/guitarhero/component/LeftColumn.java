@@ -14,14 +14,6 @@ public class LeftColumn {
 
     }
 
-    /*public static void changeSong(Song song) {
-        songName = song.getName();
-        artist = song.getArtist();
-        genre = song.getGenre().toString().replace("_", " ");
-        genre = genre.replace(genre.charAt(0), Character.toUpperCase(genre.charAt(0)));
-        highscore = song.getHighScore();
-        path = song.getFile();
-    }*/
 
     public static void createLeftColumn(JPanel bar) {
         bar.setLayout(new BoxLayout(bar, BoxLayout.Y_AXIS));
@@ -42,15 +34,7 @@ public class LeftColumn {
         bar.add(player);
         
         
-        
-        
-
-        /*Font font = songNameLabel.getFont().deriveFont(18.0f);
-        songNameLabel.setFont(font);
-        artistLabel.setFont(font);
-        genreLabel.setFont(font);
-        highScoreLabel.setFont(font);*/
-        
+     
     }
 
 
