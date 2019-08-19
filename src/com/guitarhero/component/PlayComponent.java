@@ -19,7 +19,7 @@ public class PlayComponent {
     private static Clip clip = null;
 
     public PlayComponent() {
-
+    	
     }
 
     public static void changeSong(Song song) {
@@ -63,6 +63,7 @@ public class PlayComponent {
         parent.setLayout(new BoxLayout(screen, BoxLayout.X_AXIS));
         parent.setPreferredSize(new Dimension(500,200));
         parent.setAlignmentX(Component.LEFT_ALIGNMENT);
+        parent.setBackground(new Color(229,123,57));
         JLabel songNameLabel = new JLabel("Song: " + songName, SwingConstants.LEFT);
         JLabel artistLabel = new JLabel("Artist: " + artist, SwingConstants.LEFT);
         JLabel genreLabel = new JLabel("Genre: " + genre, SwingConstants.LEFT);
@@ -81,6 +82,7 @@ public class PlayComponent {
         playButton.setFont(font);
         parent.add(imageLabel,0);
         JPanel rightPanel = new JPanel();
+        rightPanel.setBackground(new Color(229,123,57));
         rightPanel.add(Box.createHorizontalGlue());
         rightPanel.setBorder(new EmptyBorder(0,20,0,0));
         rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));

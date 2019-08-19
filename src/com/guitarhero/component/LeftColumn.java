@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 
 public class LeftColumn {
 
@@ -15,13 +16,22 @@ public class LeftColumn {
     }
 
 
-    public static void createLeftColumn(JPanel bar) {
+    public static void createLeftColumn(JPanel bar) throws IOException, Exception {
         bar.setLayout(new BoxLayout(bar, BoxLayout.Y_AXIS));
         bar.setPreferredSize(new Dimension(500,800));
         bar.setAlignmentY(Component.TOP_ALIGNMENT);
-        bar.setBackground(Color.GRAY);
+        bar.setBackground(new Color(69,10,12));
         
-        JLabel fields = new JLabel("Name        Artist       Genre");
+        JLabel title = new JLabel(new ImageIcon("resources/title.png"));
+        bar.add(title);
+        
+        
+        JLabel vineimg = new JLabel(new ImageIcon("resources/vine.png"));
+        vineimg.setBackground(null);
+        bar.add(vineimg);
+        
+        
+        JLabel fields = new JLabel("Name                   Artist");
         fields.setAlignmentX(Component.LEFT_ALIGNMENT);
         bar.add(fields);
         

@@ -4,6 +4,7 @@ import com.guitarhero.component.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class Main {
 
@@ -12,8 +13,7 @@ public class Main {
     private static GridBagConstraints c;
 
 
-
-    public static void createComponents() {
+    public static void createComponents() throws IOException, Exception {
         JPanel leftcol = new JPanel();
         LeftColumn.createLeftColumn(leftcol);
         JPanel game = new JPanel();
@@ -39,7 +39,7 @@ public class Main {
         frame.setJMenuBar(menuBar);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, Exception {
         //Make frame non-resizable
         SongList.initializeSongs();
         JFrame frame = new JFrame("GUItar Hero");
@@ -48,6 +48,7 @@ public class Main {
         Container container = frame.getContentPane();
         mainScreen = new JPanel();
         mainScreen.setLayout(new GridBagLayout());
+        mainScreen.setBackground(null);
         c = new GridBagConstraints();
         //Set preferred dimensions
         mainScreen.setPreferredSize(dimensions);
