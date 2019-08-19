@@ -11,14 +11,12 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.FileSystem;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class SongList {
 
     public static Map<String, Song> songMap = new HashMap<>();
+    public static ArrayList<JButton> buttons = new ArrayList<>();
     private static Song selected;
 
     public SongList() {
@@ -56,6 +54,7 @@ public class SongList {
             button.setBackground(null);
             button.setForeground(Color.WHITE);
             button.setActionCommand(songName);
+            buttons.add(button);
             list.add(button);
         }
         

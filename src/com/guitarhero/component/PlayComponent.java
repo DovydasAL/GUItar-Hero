@@ -1,6 +1,7 @@
 package com.guitarhero.component;
 
 import com.guitarhero.entity.Song;
+import com.guitarhero.listener.PlayButtonListener;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -17,6 +18,7 @@ public class PlayComponent {
     private static String path = "resources/test.png";
     private static JPanel parent = null;
     private static Clip clip = null;
+    public static JButton play;
 
     public PlayComponent() {
     	
@@ -79,6 +81,7 @@ public class PlayComponent {
         playButton.setFocusPainted(false);
         playButton.setBackground(null);
         playButton.setMargin(new Insets(0,190,0,0));
+        play = playButton;
         Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("resources/fonts/Roddenberry Italic.ttf"));
         
         songNameLabel.setFont(customFont.deriveFont(20.0f));
@@ -86,6 +89,8 @@ public class PlayComponent {
         genreLabel.setFont(customFont.deriveFont(20.0f));
         highScoreLabel.setFont(customFont.deriveFont(20.0f));
         playButton.setFont(customFont.deriveFont(20.0f));
+        playButton.addActionListener(new PlayButtonListener());
+        playButton.setActionCommand("togglePlay");
         parent.add(imageLabel,0);
         JPanel rightPanel = new JPanel();
         rightPanel.setBackground(new Color(229,123,57));
