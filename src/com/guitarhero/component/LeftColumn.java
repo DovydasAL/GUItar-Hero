@@ -5,6 +5,8 @@ import com.guitarhero.component.*;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -31,8 +33,12 @@ public class LeftColumn {
         bar.add(vineimg);
         
         
-        JLabel fields = new JLabel("Name                   Artist");
+        JLabel fields = new JLabel("Song                   Artist");
+        Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("resources/fonts/Roddenberry Italic.ttf"));
+        fields.setFont(customFont.deriveFont(18.0f));
+        fields.setForeground(Color.WHITE);
         fields.setAlignmentX(Component.LEFT_ALIGNMENT);
+        fields.setBorder(new EmptyBorder(15,40,10,0));
         bar.add(fields);
         
         JPanel list = new JPanel();
