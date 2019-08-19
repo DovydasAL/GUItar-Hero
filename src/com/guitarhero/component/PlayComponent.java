@@ -69,9 +69,10 @@ public class PlayComponent {
         JLabel genreLabel = new JLabel("Genre: " + genre, SwingConstants.LEFT);
         JLabel highScoreLabel = new JLabel("Highscore: " + highscore.toString(), SwingConstants.LEFT);
         JLabel imageLabel = new JLabel(new ImageIcon(path), SwingConstants.LEFT);
-        artistLabel.setBorder(new EmptyBorder(10,0,0,0));
-        genreLabel.setBorder(new EmptyBorder(10,0,0,0));
-        highScoreLabel.setBorder(new EmptyBorder(10,0,10,0));
+        songNameLabel.setBorder(new EmptyBorder(0,0,0,10));
+        artistLabel.setBorder(new EmptyBorder(10,0,0,10));
+        genreLabel.setBorder(new EmptyBorder(10,0,0,10));
+        highScoreLabel.setBorder(new EmptyBorder(10,0,10,10));
         JButton playButton = new JButton("Play", new ImageIcon("resources/icons/play_guitar.png"));
         playButton.setFocusPainted(false);
         playButton.setBorderPainted(false);
