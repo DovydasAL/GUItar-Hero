@@ -1,6 +1,7 @@
 package com.guitarhero;
 
 import com.guitarhero.component.*;
+import com.guitarhero.listener.MenuOptionsListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,6 +32,7 @@ public class Main {
     public static void createMenuBar(JFrame frame) {
         JMenuBar menuBar = new JMenuBar();
         JMenu options = new JMenu("Options");
+        options.addMenuListener(new MenuOptionsListener());
         JMenu help = new JMenu("Help");
         JMenu loadFile = new JMenu("Load Song");
         menuBar.add(options);

@@ -1,16 +1,12 @@
 package com.guitarhero.component;
 
-import com.guitarhero.SongButtonListener;
+import com.guitarhero.listener.SongButtonListener;
 import com.guitarhero.entity.Song;
-import com.guitarhero.component.PlayComponent;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;

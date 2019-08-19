@@ -1,4 +1,4 @@
-package com.guitarhero;
+package com.guitarhero.listener;
 
 import com.guitarhero.component.PlayComponent;
 import com.guitarhero.component.SongList;
