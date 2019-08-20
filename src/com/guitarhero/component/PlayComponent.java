@@ -1,6 +1,7 @@
 package com.guitarhero.component;
 
 import com.guitarhero.entity.Song;
+import com.guitarhero.listener.PlayButtonListener;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -17,6 +18,7 @@ public class PlayComponent {
     private static String path = "resources/test.png";
     private static JPanel parent = null;
     private static Clip clip = null;
+    public static JButton play;
     private static boolean playing = false;
 
     public PlayComponent() {
@@ -76,15 +78,17 @@ public class PlayComponent {
         JLabel genreLabel = new JLabel("Genre: " + genre, SwingConstants.LEFT);
         JLabel highScoreLabel = new JLabel("Highscore: " + highscore.toString(), SwingConstants.LEFT);
         JLabel imageLabel = new JLabel(new ImageIcon(path), SwingConstants.LEFT);
-        artistLabel.setBorder(new EmptyBorder(10,0,0,0));
-        genreLabel.setBorder(new EmptyBorder(10,0,0,0));
-        highScoreLabel.setBorder(new EmptyBorder(10,0,10,0));
+        artistLabel.setBorder(new EmptyBorder(10,0,0,10));
+        genreLabel.setBorder(new EmptyBorder(10,0,0,10));
+        highScoreLabel.setBorder(new EmptyBorder(10,0,10,10));
         JButton playButton = new JButton("Play", new ImageIcon("resources/icons/play_guitar.png"));
         playButton.setFocusPainted(false);
         playButton.setBorderPainted(false);
-        playButton.setFocusPainted(false);
         playButton.setBackground(null);
         playButton.setMargin(new Insets(0,190,0,0));
+        playButton.addActionListener(new PlayButtonListener());
+        playButton.setActionCommand("togglePlay");
+        play = playButton;
         Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("resources/fonts/Roddenberry Italic.ttf"));
         songNameLabel.setFont(customFont.deriveFont(20.0f));
         artistLabel.setFont(customFont.deriveFont(20.0f));
