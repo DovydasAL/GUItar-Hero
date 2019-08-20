@@ -1,8 +1,13 @@
 package com.guitarhero.component;
 
+import com.guitarhero.entity.Note;
 import com.guitarhero.entity.Song;
 import com.guitarhero.component.PlayComponent;
+
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.Queue;
+import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -62,8 +67,8 @@ public class GamePanel extends JPanel {
     	g.fillOval(140 + 65*note, 12, 25, 25);
     }
     
-    public static void GameLoop(Song song) {
-    	//While loop that updates note locations
+    public static void gameLoop() {
+    	
     }
     
     @Override
@@ -74,8 +79,25 @@ public class GamePanel extends JPanel {
     	drawnote(2,g);
     	drawnote(3,g);
     }
-    
 
 
+	public static void gameloop() throws InterruptedException {
+		Song song = SongList.selected;
+		Queue<Note> notes = new Queue<Note>;
+		Queue<Integer> locations;
+		long buffer;
+		int timing = 0;
+		
+		Note curr = song.getFirstNote();
+		TimeUnit.SECONDS.sleep(curr.getTimestamp());
+		notes.add(curr);
+		
+		while(PlayComponent.isplaying()) {
+			//create initial buffer time
+			
+		}
+		
+	}
 
 }
+

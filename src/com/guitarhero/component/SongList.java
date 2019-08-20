@@ -17,7 +17,7 @@ public class SongList {
 
     public static Map<String, Song> songMap = new HashMap<>();
     public static ArrayList<JButton> buttons = new ArrayList<>();
-    private static Song selected;
+    public static Song selected;
 
     public SongList() {
     }

@@ -83,6 +83,10 @@ public class Song {
     public void setFirstNote(Note firstNote) {
         this.firstNote = firstNote;
     }
+    
+    public Note getFirstNote() {
+    	return this.firstNote;
+    }
 
     public static Track filter(Track track) {
         for (int i=0;i<track.size();i++) {
