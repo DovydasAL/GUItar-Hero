@@ -7,18 +7,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
-public class Main {
+public class Main{
 
     private static final Dimension dimensions = new Dimension(1200,800);
     private static JPanel mainScreen;
+    private static JFrame frame;
     private static GridBagConstraints c;
-
+    
+    public Main() {
+    }
 
     public static void createComponents() throws IOException, Exception {
         JPanel leftcol = new JPanel();
         LeftColumn.createLeftColumn(leftcol);
-        JPanel game = new JPanel();
-        GamePanel.createGamePanel(game);
+        GamePanel game = new GamePanel();
         c.gridx = 0;
         c.gridy = 0;
         c.anchor = GridBagConstraints.NORTHWEST;
@@ -44,6 +46,7 @@ public class Main {
     public static void main(String[] args) throws IOException, Exception {
         //Make frame non-resizable
         SongList.initializeSongs();
+        SwingUtilities.isEventDispatchThread();
         JFrame frame = new JFrame("GUItar Hero");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
@@ -54,6 +57,8 @@ public class Main {
         c = new GridBagConstraints();
         //Set preferred dimensions
         mainScreen.setPreferredSize(dimensions);
+        
+        GamePanel game = new GamePanel();
         createMenuBar(frame);
         //Call function to add components to the screen
         createComponents();
@@ -61,5 +66,7 @@ public class Main {
         container.add(mainScreen);
         frame.pack();
         frame.setVisible(true);
+        
     }
+    
 }

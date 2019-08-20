@@ -44,10 +44,9 @@ public class LeftColumn {
         JPanel list = new JPanel();
         SongList.createSongList(list);
         bar.add(list);
-        
-        JPanel player = new JPanel();
-        PlayComponent.createPlayComponent(player);
-        bar.add(player);
+        JPanel play = new JPanel();
+        PlayComponent.createPlayComponent(play);
+        bar.add(play);
         
         
      
