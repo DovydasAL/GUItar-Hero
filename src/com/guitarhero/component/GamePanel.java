@@ -1,7 +1,12 @@
 package com.guitarhero.component;
 
+import com.guitarhero.entity.GraphicNote;
+import com.guitarhero.entity.Note;
 import com.guitarhero.entity.Song;
 import com.guitarhero.component.PlayComponent;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Queue;
 
 import javax.imageio.ImageIO;
@@ -14,19 +19,46 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.TimeUnit;
 
 public class GamePanel extends JPanel {
-	
+
+    public static LinkedList<Note> allNotes = new LinkedList<>();
+    public static LinkedList<Note> activeNotes = new LinkedList<>();
+    public static ArrayList<GraphicNote> graphicNotes = new ArrayList<>();
+
 	
 	private Image bg = new ImageIcon("resources/game_bg.png").getImage();
 
-	public GamePanel() throws IOException {
+	public GamePanel() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setPreferredSize(new Dimension(700,800));
         setBackground(new Color(11,11,15));
+        setSize(new Dimension(700,800));
         //JLabel imageLabel = new JLabel(new ImageIcon("resources/game_bg.png"));
         //add(imageLabel);
 	}
+
+	public void prepareSong(Song song) {
+	    Note firstNote = song.getFirstNote();
+	    while (firstNote != null) {
+	        allNotes.addLast(firstNote);
+	        firstNote = firstNote.getNextNote();
+        }
+    }
+
+    public void checkForNote(int millisecondsElapsed) {
+		Note nextNote = null;
+		if (!allNotes.isEmpty()) {
+			nextNote = allNotes.getFirst();
+		}
+	    if (nextNote != null && nextNote.getTimestamp() < millisecondsElapsed) {
+	        activeNotes.add(nextNote);
+	        allNotes.remove(nextNote);
+        }
+	    updatePositions();
+		repaint();
+    }
 
    
     public static void createGamePanel(JPanel game) {
@@ -65,14 +97,66 @@ public class GamePanel extends JPanel {
     public static void GameLoop(Song song) {
     	//While loop that updates note locations
     }
+
+    public void updatePositions() {
+	    for (GraphicNote note : graphicNotes) {
+	        note.yOffset = note.yOffset + 10;
+	    }
+    }
+
+//    @Override
+//	public void repaint() {
+//
+//	}
     
     @Override
     public void paintComponent(Graphics g) {
     	super.paintComponent(g);
     	g.drawImage(bg, 0,0,null);
-    	drawnote(1,g);
-    	drawnote(2,g);
-    	drawnote(3,g);
+    	for (Note note : activeNotes) {
+    	    if (note.isGreen()) {
+    	        drawnote(1, g);
+    	        graphicNotes.add(new GraphicNote(128 + 65*1, "g"));
+            }
+    	    if (note.isRed()) {
+    	        drawnote(2, g);
+                graphicNotes.add(new GraphicNote(128 + 65*2, "r"));
+            }
+    	    if (note.isYellow()) {
+    	        drawnote(3, g);
+                graphicNotes.add(new GraphicNote(128 + 65*3, "y"));
+            }
+    	    if (note.isBlue()) {
+    	        drawnote(4,g);
+                graphicNotes.add(new GraphicNote(128 + 65*4, "b"));
+            }
+    	    if (note.isOrange()) {
+    	        drawnote(5,g);
+                graphicNotes.add(new GraphicNote(128 + 65*5, "o"));
+            }
+    	    activeNotes.remove(note);
+        }
+    	for (GraphicNote note : graphicNotes) {
+			if (note.color.equals("g")) {
+				g.setColor(Color.GREEN);
+			}
+			if (note.color.equals("r")) {
+				g.setColor(Color.RED);
+			}
+			if (note.color.equals("y")) {
+				g.setColor(Color.YELLOW);
+			}
+			if (note.color.equals("b")) {
+				g.setColor(Color.BLUE);
+			}
+			if (note.color.equals("o")) {
+				g.setColor(Color.ORANGE);
+			}
+			g.fillOval(note.xPosition, note.yOffset, 50, 50);
+			g.setColor(Color.WHITE);
+			g.fillOval(note.xPosition + 12, note.yOffset + 12, 25, 25);
+
+		}
     }
     
 

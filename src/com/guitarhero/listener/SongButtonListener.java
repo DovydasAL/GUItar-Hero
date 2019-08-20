@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 public class SongButtonListener implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         String songName = event.getActionCommand();
+        SongList.selected = SongList.songMap.get(songName);
         PlayComponent.changeSong(SongList.songMap.get(songName));
     }
 }

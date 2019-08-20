@@ -84,6 +84,10 @@ public class Song {
         this.firstNote = firstNote;
     }
 
+    public Note getFirstNote() {
+        return firstNote;
+    }
+
     public static Track filter(Track track) {
         for (int i=0;i<track.size();i++) {
             MidiEvent midiEvent = track.get(i);

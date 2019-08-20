@@ -1,5 +1,6 @@
 package com.guitarhero.component;
 
+import com.guitarhero.Main;
 import com.guitarhero.entity.Song;
 import com.guitarhero.listener.PlayButtonListener;
 

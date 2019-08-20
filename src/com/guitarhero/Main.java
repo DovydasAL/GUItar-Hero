@@ -1,11 +1,15 @@
 package com.guitarhero;
 
 import com.guitarhero.component.*;
+import com.guitarhero.entity.Song;
+import com.guitarhero.entity.UpdateNotesThread;
 import com.guitarhero.listener.MenuOptionsListener;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Main{
 
@@ -13,14 +17,15 @@ public class Main{
     private static JPanel mainScreen;
     private static JFrame frame;
     private static GridBagConstraints c;
-    
+    public static GamePanel gamePanel = new GamePanel();
+
     public Main() {
     }
 
     public static void createComponents() throws IOException, Exception {
         JPanel leftcol = new JPanel();
         LeftColumn.createLeftColumn(leftcol);
-        GamePanel game = new GamePanel();
+        gamePanel = new GamePanel();
         c.gridx = 0;
         c.gridy = 0;
         c.anchor = GridBagConstraints.NORTHWEST;
@@ -28,7 +33,19 @@ public class Main{
         c.weightx = 1;
         mainScreen.add(leftcol,c);
         c.weightx = 2;
-        mainScreen.add(game);
+        mainScreen.add(gamePanel);
+    }
+
+    public static void startGame() {
+        Song song = SongList.selected;
+        gamePanel.prepareSong(song);
+        UpdateNotesThread checkForNote = new UpdateNotesThread();
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        executorService.execute(checkForNote);
+    }
+
+    public static void stopGame() {
+
     }
 
     public static void createMenuBar(JFrame frame) {
@@ -57,8 +74,7 @@ public class Main{
         c = new GridBagConstraints();
         //Set preferred dimensions
         mainScreen.setPreferredSize(dimensions);
-        
-        GamePanel game = new GamePanel();
+
         createMenuBar(frame);
         //Call function to add components to the screen
         createComponents();
