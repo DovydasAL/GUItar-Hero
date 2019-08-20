@@ -1,6 +1,7 @@
 package com.guitarhero.listener;
 
 import com.guitarhero.Main;
+
 import com.guitarhero.component.PlayComponent;
 import com.guitarhero.component.SongList;
 
@@ -21,6 +22,7 @@ public class PlayButtonListener implements ActionListener {
                 }
                 PlayComponent.play.setText("Play");
                 Main.stopGame();
+
             } else {
                 playing = true;
                 for (JButton button : SongList.buttons) {
@@ -28,6 +30,7 @@ public class PlayButtonListener implements ActionListener {
                 }
                 PlayComponent.play.setText("Stop");
                 Main.startGame();
+
             }
         }
     }

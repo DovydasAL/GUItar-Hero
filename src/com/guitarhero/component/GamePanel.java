@@ -3,22 +3,12 @@ package com.guitarhero.component;
 import com.guitarhero.entity.GraphicNote;
 import com.guitarhero.entity.Note;
 import com.guitarhero.entity.Song;
-import com.guitarhero.component.PlayComponent;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
-
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
 public class GamePanel extends JPanel {
@@ -59,7 +49,6 @@ public class GamePanel extends JPanel {
 	    updatePositions();
 		repaint();
     }
-
    
     public static void createGamePanel(JPanel game) {
     	game.setLayout(new BoxLayout(game, BoxLayout.Y_AXIS));
@@ -93,21 +82,13 @@ public class GamePanel extends JPanel {
     	g.setColor(Color.WHITE);
     	g.fillOval(140 + 65*note, 12, 25, 25);
     }
-    
-    public static void GameLoop(Song song) {
-    	//While loop that updates note locations
-    }
+
 
     public void updatePositions() {
 	    for (GraphicNote note : graphicNotes) {
 	        note.yOffset = note.yOffset + 10;
 	    }
     }
-
-//    @Override
-//	public void repaint() {
-//
-//	}
     
     @Override
     public void paintComponent(Graphics g) {
@@ -158,8 +139,7 @@ public class GamePanel extends JPanel {
 
 		}
     }
-    
-
 
 
 }
+
