@@ -17,8 +17,9 @@ import java.util.concurrent.Executors;
 public class Main{
 
     private static final Dimension dimensions = new Dimension(1200,800);
-    private static JPanel mainScreen;
+    public static JPanel mainScreen;
     private static JFrame frame;
+    public static JMenu options;
     private static GridBagConstraints c;
     public static GamePanel gamePanel = new GamePanel();
     public static ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -43,6 +44,7 @@ public class Main{
     public static void startGame() {
         UpdateNotesThread.stop = false;
         Song song = SongList.selected;
+        options.setEnabled(false);
         gamePanel.prepareSong(song);
         executorService = Executors.newCachedThreadPool();
         UpdateNotesThread checkForNote = new UpdateNotesThread();
@@ -52,6 +54,7 @@ public class Main{
 
     public static void stopGame() {
         UpdateNotesThread.stop = true;
+        options.setEnabled(true);
         GamePanel.consecutiveNotes = 0;
         GamePanel.multiplier = 1;
         GamePanel.activeNotes = new LinkedList<>();
@@ -64,13 +67,13 @@ public class Main{
 
     public static void createMenuBar(JFrame frame) {
         JMenuBar menuBar = new JMenuBar();
-        JMenu options = new JMenu("Options");
+        options = new JMenu("Options");
         options.addMenuListener(new MenuOptionsListener());
         JMenu help = new JMenu("Help");
-        JMenu loadFile = new JMenu("Load Song");
+//        JMenu loadFile = new JMenu("Load Song");
         menuBar.add(options);
         menuBar.add(help);
-        menuBar.add(loadFile);
+//        menuBar.add(loadFile);
         frame.setJMenuBar(menuBar);
     }
 
