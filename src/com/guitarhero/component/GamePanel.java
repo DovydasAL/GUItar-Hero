@@ -15,7 +15,10 @@ public class GamePanel extends JPanel {
 
     public static LinkedList<Note> allNotes = new LinkedList<>();
     public static LinkedList<Note> activeNotes = new LinkedList<>();
-    public static ArrayList<GraphicNote> graphicNotes = new ArrayList<>();
+    public static LinkedList<GraphicNote> graphicNotes = new LinkedList<>();
+    public static Integer score = 0;
+    public static Integer multiplier = 1;
+    public static Integer consecutiveNotes = 0;
 
 	
 	private Image bg = new ImageIcon("resources/game_bg.png").getImage();
@@ -58,6 +61,27 @@ public class GamePanel extends JPanel {
         game.add(imageLabel);
  
     }
+
+    public static void processKey(String color) {
+		Integer graphicNoteSize = graphicNotes.size();
+		int notes = (graphicNoteSize < 5) ? graphicNoteSize : 5;
+		for (int i=0;i<notes;i++) {
+			GraphicNote note = graphicNotes.get(i);
+			if (color.equals(note.color)) {
+				graphicNotes.remove(note);
+				if (consecutiveNotes > 10) {
+					consecutiveNotes = 0;
+					multiplier = multiplier + 1;
+				}
+				consecutiveNotes = consecutiveNotes + 1;
+				score = score + 100 * multiplier;
+				return;
+			}
+		}
+		multiplier = 0;
+		consecutiveNotes = 0;
+
+	}
     
     public static void drawnote(int note, Graphics g) {
     	switch(note){
@@ -97,23 +121,23 @@ public class GamePanel extends JPanel {
     	for (Note note : activeNotes) {
     	    if (note.isGreen()) {
     	        drawnote(1, g);
-    	        graphicNotes.add(new GraphicNote(128 + 65*1, "g"));
+    	        graphicNotes.addLast(new GraphicNote(128 + 65*1, "g"));
             }
     	    if (note.isRed()) {
     	        drawnote(2, g);
-                graphicNotes.add(new GraphicNote(128 + 65*2, "r"));
+                graphicNotes.addLast(new GraphicNote(128 + 65*2, "r"));
             }
     	    if (note.isYellow()) {
     	        drawnote(3, g);
-                graphicNotes.add(new GraphicNote(128 + 65*3, "y"));
+                graphicNotes.addLast(new GraphicNote(128 + 65*3, "y"));
             }
     	    if (note.isBlue()) {
     	        drawnote(4,g);
-                graphicNotes.add(new GraphicNote(128 + 65*4, "b"));
+                graphicNotes.addLast(new GraphicNote(128 + 65*4, "b"));
             }
     	    if (note.isOrange()) {
     	        drawnote(5,g);
-                graphicNotes.add(new GraphicNote(128 + 65*5, "o"));
+                graphicNotes.addLast(new GraphicNote(128 + 65*5, "o"));
             }
     	    activeNotes.remove(note);
         }
@@ -138,6 +162,7 @@ public class GamePanel extends JPanel {
 			g.fillOval(note.xPosition + 12, note.yOffset + 12, 25, 25);
 
 		}
+    	g.drawString(score.toString(), 100, 100);
     }
 
 

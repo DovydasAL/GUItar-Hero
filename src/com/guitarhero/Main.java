@@ -1,8 +1,10 @@
 package com.guitarhero;
 
 import com.guitarhero.component.*;
+import com.guitarhero.entity.Settings;
 import com.guitarhero.entity.Song;
 import com.guitarhero.entity.UpdateNotesThread;
+import com.guitarhero.listener.GuitarKeyAction;
 import com.guitarhero.listener.MenuOptionsListener;
 
 import javax.swing.*;
@@ -71,6 +73,16 @@ public class Main{
         mainScreen = new JPanel();
         mainScreen.setLayout(new GridBagLayout());
         mainScreen.setBackground(null);
+        mainScreen.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(Settings.red), "r");
+        mainScreen.getActionMap().put("r", new GuitarKeyAction());
+        mainScreen.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(Settings.green), "g");
+        mainScreen.getActionMap().put("g", new GuitarKeyAction());
+        mainScreen.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(Settings.yellow), "y");
+        mainScreen.getActionMap().put("y", new GuitarKeyAction());
+        mainScreen.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(Settings.blue), "b");
+        mainScreen.getActionMap().put("b", new GuitarKeyAction());
+        mainScreen.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(Settings.orange), "o");
+        mainScreen.getActionMap().put("o", new GuitarKeyAction());
         c = new GridBagConstraints();
         //Set preferred dimensions
         mainScreen.setPreferredSize(dimensions);
