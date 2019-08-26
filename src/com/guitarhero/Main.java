@@ -57,6 +57,7 @@ public class Main{
     }
 
     public static void stopGame() {
+        GamePanel.displaySummary();
         for (JButton button : SongList.buttons) {
             button.setEnabled(true);
         }
@@ -68,6 +69,10 @@ public class Main{
         GamePanel.activeNotes = new LinkedList<>();
         GamePanel.graphicNotes = new LinkedList<>();
         GamePanel.allNotes = new LinkedList<>();
+        GamePanel.totalNotes = 0;
+        GamePanel.notesHit = 0;
+        GamePanel.highestConsecutiveNotes = 0;
+        GamePanel.notesMissed = 0;
         executorService.shutdownNow();
         PlayComponent.playSong(null);
 
