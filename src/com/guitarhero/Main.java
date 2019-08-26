@@ -42,6 +42,10 @@ public class Main{
     }
 
     public static void startGame() {
+        for (JButton button : SongList.buttons) {
+            button.setEnabled(false);
+        }
+        PlayComponent.play.setText("Stop");
         UpdateNotesThread.stop = false;
         Song song = SongList.selected;
         options.setEnabled(false);
@@ -53,6 +57,10 @@ public class Main{
     }
 
     public static void stopGame() {
+        for (JButton button : SongList.buttons) {
+            button.setEnabled(true);
+        }
+        PlayComponent.play.setText("Play");
         UpdateNotesThread.stop = true;
         options.setEnabled(true);
         GamePanel.consecutiveNotes = 0;
