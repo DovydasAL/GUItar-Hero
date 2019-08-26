@@ -42,6 +42,9 @@ public class PlayComponent {
             clip.stop();
             playing = false;
         }
+        if (file == null) {
+            return;
+        }
         try {
             File wavFile = new File(file);
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(wavFile);
@@ -89,6 +92,7 @@ public class PlayComponent {
         playButton.setMargin(new Insets(0,190,0,0));
         playButton.addActionListener(new PlayButtonListener());
         playButton.setActionCommand("togglePlay");
+        playButton.setEnabled(false);
         play = playButton;
         Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("resources/fonts/Roddenberry Italic.ttf"));
         songNameLabel.setFont(customFont.deriveFont(20.0f));

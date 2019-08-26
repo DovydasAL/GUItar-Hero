@@ -11,6 +11,7 @@ public class SongButtonListener implements ActionListener {
         String songName = event.getActionCommand();
         SongList.selected = SongList.songMap.get(songName);
         PlayComponent.changeSong(SongList.songMap.get(songName));
+        PlayComponent.play.setEnabled(true);
         SongList.selected = SongList.songMap.get(songName);
     }
 }

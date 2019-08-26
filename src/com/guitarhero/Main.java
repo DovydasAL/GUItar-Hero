@@ -10,6 +10,7 @@ import com.guitarhero.listener.MenuOptionsListener;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -20,6 +21,7 @@ public class Main{
     private static JFrame frame;
     private static GridBagConstraints c;
     public static GamePanel gamePanel = new GamePanel();
+    public static ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     public Main() {
     }
@@ -39,14 +41,24 @@ public class Main{
     }
 
     public static void startGame() {
+        UpdateNotesThread.stop = false;
         Song song = SongList.selected;
         gamePanel.prepareSong(song);
+        executorService = Executors.newCachedThreadPool();
         UpdateNotesThread checkForNote = new UpdateNotesThread();
-        ExecutorService executorService = Executors.newCachedThreadPool();
         executorService.execute(checkForNote);
+        PlayComponent.playSong(song.getWavFile());
     }
 
     public static void stopGame() {
+        UpdateNotesThread.stop = true;
+        GamePanel.consecutiveNotes = 0;
+        GamePanel.multiplier = 1;
+        GamePanel.activeNotes = new LinkedList<>();
+        GamePanel.graphicNotes = new LinkedList<>();
+        GamePanel.allNotes = new LinkedList<>();
+        executorService.shutdownNow();
+        PlayComponent.playSong(null);
 
     }
 

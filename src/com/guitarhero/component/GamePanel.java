@@ -78,7 +78,7 @@ public class GamePanel extends JPanel {
 				return;
 			}
 		}
-		multiplier = 0;
+		multiplier = 1;
 		consecutiveNotes = 0;
 
 	}

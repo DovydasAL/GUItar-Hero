@@ -9,15 +9,17 @@ import static com.guitarhero.Main.gamePanel;
 
 public class UpdateNotesThread implements Runnable {
 
-    public static int millisecondsElapsed = 0;
+    public int millisecondsElapsed = 0;
+    public static boolean stop = false;
 
     public void setGamePanel() {
-
+        millisecondsElapsed = 0;
+        stop = false;
     }
 
     public void run() {
         millisecondsElapsed = 0;
-        while (true) {
+        while (!stop) {
             try {
                 Main.gamePanel.checkForNote(millisecondsElapsed);
                 TimeUnit.MILLISECONDS.sleep(50);
