@@ -20,6 +20,7 @@ public class SongList {
     public static Song selected;
 
     public SongList() {
+    	
     }
     
     public static void initializeSongs() {

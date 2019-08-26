@@ -19,6 +19,7 @@ public class GamePanel extends JPanel {
 	public static final int floor = 620;
 	public static int bg1 = 0;
 	public static int bg2 = -800;
+	public static int[] fire = {0,0,0,0,0};
     public static LinkedList<Note> allNotes = new LinkedList<>();
     public static LinkedList<Note> activeNotes = new LinkedList<>();
     public static LinkedList<GraphicNote> graphicNotes = new LinkedList<>();
@@ -30,7 +31,7 @@ public class GamePanel extends JPanel {
     public static Integer totalNotes = 0;
     public static Integer notesMissed = 0;
     public static JDialog summaryDialog =  new JDialog();
-
+    
 	private Image bg = new ImageIcon("resources/game_bg.png").getImage();
 	private Image green = new ImageIcon("resources/green_note.png").getImage();
 	private Image red = new ImageIcon("resources/red_note.png").getImage();
@@ -38,11 +39,18 @@ public class GamePanel extends JPanel {
 	private Image blue = new ImageIcon("resources/blue_note.png").getImage();
 	private Image orange = new ImageIcon("resources/orange_note.png").getImage();
 	private Image grey = new ImageIcon("resources/grey_note.png").getImage();
-	private Image green_b = new ImageIcon("resources/green_button.png").getImage();
-	private Image red_b = new ImageIcon("resources/red_button.png").getImage();
-	private Image yellow_b = new ImageIcon("resources/yellow_button.png").getImage();
-	private Image blue_b = new ImageIcon("resources/blue_button.png").getImage();
-	private Image orange_b = new ImageIcon("resources/orange_button.png").getImage();
+	private static Image green_b = new ImageIcon("resources/green_button.png").getImage();
+	private static Image red_b = new ImageIcon("resources/red_button.png").getImage();
+	private static Image yellow_b = new ImageIcon("resources/yellow_button.png").getImage();
+	private static Image blue_b = new ImageIcon("resources/blue_button.png").getImage();
+	private static Image orange_b = new ImageIcon("resources/orange_button.png").getImage();
+	private static Image green_down = new ImageIcon("resources/green_button_down.png").getImage();
+	private static Image red_down = new ImageIcon("resources/red_button_down.png").getImage();
+	private static Image yellow_down = new ImageIcon("resources/yellow_button_down.png").getImage();
+	private static Image blue_down = new ImageIcon("resources/blue_button_down.png").getImage();
+	private static Image orange_down = new ImageIcon("resources/orange_button_down.png").getImage();
+	public static Image[] buttons = {green_b,red_b,yellow_b,blue_b,orange_b};
+	private Image flames = new ImageIcon("resources/fire.png").getImage();
 	
 	
 	public GamePanel() {
@@ -62,7 +70,7 @@ public class GamePanel extends JPanel {
     }
 
     public void checkForNote(int millisecondsElapsed) {
-		Note nextNote = null;
+		Note nextNote = null; 
 		if (!allNotes.isEmpty()) {
 			nextNote = allNotes.getFirst();
 		}
@@ -105,10 +113,27 @@ public class GamePanel extends JPanel {
     public static void processKey(String color) {
 		Integer graphicNoteSize = graphicNotes.size();
 		int notes = (graphicNoteSize < 5) ? graphicNoteSize : 5;
+		
+		switch(color) {
+			case "g": buttons[0] = green_down; break;
+			case "r": buttons[1] = red_down; break;
+			case "y": buttons[2] = yellow_down; break;
+			case "b": buttons[3] = blue_down; break;
+			case "o": buttons[4] = orange_down; break;
+		}
+		
 		for (int i=0;i<notes;i++) {
 			GraphicNote note = graphicNotes.get(i);
 			if (color.equals(note.color) && note.yOffset > floor-25 && note.yOffset < floor+25) {
-				//compare y values
+				switch(note.color){
+					case "g": fire[0] = 1; break;
+					case "r": fire[1] = 1; break;
+					case "y": fire[2] = 1; break;
+					case "b": fire[3] = 1; break;
+					case "o": fire[4] = 1; break;
+				}
+				
+				
 				graphicNotes.remove(note);
 				if (consecutiveNotes > highestConsecutiveNotes) {
 					highestConsecutiveNotes = consecutiveNotes;
@@ -132,6 +157,7 @@ public class GamePanel extends JPanel {
     public void updatePositions() {
 		ArrayList<GraphicNote> remove = new ArrayList<>();
 	    
+		//updates background
 		if(bg1 >= 790) {
 			bg1 = -800;
 		}
@@ -163,11 +189,11 @@ public class GamePanel extends JPanel {
     	g.drawImage(bg, 0,bg1,null);
     	g.drawImage(bg, 0,bg2, null);
     	//draws 5 note buttons
-    	g.drawImage(green_b,125 + 65, 630, null);
-    	g.drawImage(red_b, 125 + 65*2, 630, null);
-    	g.drawImage(yellow_b, 125 + 65*3, 630, null);
-    	g.drawImage(blue_b, 125 + 65*4, 630, null);
-    	g.drawImage(orange_b, 127 + 65*5, 630, null);
+    	g.drawImage(buttons[0],125 + 65, 630, null);
+    	g.drawImage(buttons[1], 125 + 65*2, 630, null);
+    	g.drawImage(buttons[2], 125 + 65*3, 630, null);
+    	g.drawImage(buttons[3], 125 + 65*4, 630, null);
+    	g.drawImage(buttons[4], 127 + 65*5, 630, null);
     	
     	
     	
@@ -210,7 +236,16 @@ public class GamePanel extends JPanel {
 			}
 
 		}
+    	
+    	buttons = new Image[]{green_b,red_b,yellow_b,blue_b,orange_b};
+    	
+    	for(int i=0;i<5; i++) {
+    		if(fire[i] > 0) {
+    			g.drawImage(flames,125 + 65*(i+1), floor-20, null);
+    		}
+    	}
     	g.drawString(score.toString(), 100, 100);
+    	fire = new int[]{0,0,0,0,0};
     }
 
 
