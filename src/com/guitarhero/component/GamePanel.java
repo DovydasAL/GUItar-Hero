@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class GamePanel extends JPanel {
 
 	public static final DecimalFormat percentFormat = new DecimalFormat("0.00");
+	public static final int floor = 620;
     public static LinkedList<Note> allNotes = new LinkedList<>();
     public static LinkedList<Note> activeNotes = new LinkedList<>();
     public static LinkedList<GraphicNote> graphicNotes = new LinkedList<>();
@@ -30,13 +31,19 @@ public class GamePanel extends JPanel {
 
 	
 	private Image bg = new ImageIcon("resources/game_bg.png").getImage();
-	private Image green = new ImageIcon("resources/green_button.png").getImage();
-	private Image red = new ImageIcon("resources/red_button.png").getImage();
-	private Image yellow = new ImageIcon("resources/yellow_button.png").getImage();
-	private Image blue = new ImageIcon("resources/blue_button.png").getImage();
-	private Image orange = new ImageIcon("resources/orange_button.png").getImage();
+	private Image green = new ImageIcon("resources/green_note.png").getImage();
+	private Image red = new ImageIcon("resources/red_note.png").getImage();
+	private Image yellow = new ImageIcon("resources/yellow_note.png").getImage();
+	private Image blue = new ImageIcon("resources/blue_note.png").getImage();
+	private Image orange = new ImageIcon("resources/orange_note.png").getImage();
+	private Image grey = new ImageIcon("resources/grey_note.png").getImage();
+	private Image green_b = new ImageIcon("resources/green_button.png").getImage();
+	private Image red_b = new ImageIcon("resources/red_button.png").getImage();
+	private Image yellow_b = new ImageIcon("resources/yellow_button.png").getImage();
+	private Image blue_b = new ImageIcon("resources/blue_button.png").getImage();
+	private Image orange_b = new ImageIcon("resources/orange_button.png").getImage();
 	
-
+	
 	public GamePanel() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setPreferredSize(new Dimension(700,800));
@@ -101,7 +108,8 @@ public class GamePanel extends JPanel {
 		int notes = (graphicNoteSize < 5) ? graphicNoteSize : 5;
 		for (int i=0;i<notes;i++) {
 			GraphicNote note = graphicNotes.get(i);
-			if (color.equals(note.color)) {
+			if (color.equals(note.color) && note.yOffset > floor-25 && note.yOffset < floor+25) {
+				//compare y values
 				graphicNotes.remove(note);
 				if (consecutiveNotes > highestConsecutiveNotes) {
 					highestConsecutiveNotes = consecutiveNotes;
@@ -139,6 +147,12 @@ public class GamePanel extends JPanel {
     public void paintComponent(Graphics g) {
     	super.paintComponent(g);
     	g.drawImage(bg, 0,0,null);
+    	//draws 5 note buttons
+    	g.drawImage(green_b,125 + 65, 630, null);
+    	g.drawImage(red_b, 125 + 65*2, 630, null);
+    	g.drawImage(yellow_b, 125 + 65*3, 630, null);
+    	g.drawImage(blue_b, 125 + 65*4, 630, null);
+    	g.drawImage(orange_b, 127 + 65*5, 630, null);
     	
     	
     	
@@ -161,20 +175,23 @@ public class GamePanel extends JPanel {
     	    activeNotes.remove(note);
         }
     	for (GraphicNote note : graphicNotes) {
-			if (note.color.equals("g")) {
+			if (note.color.equals("g") && note.yOffset < floor+25) {
 				g.drawImage(green, note.xPosition-4, note.yOffset, null);
 			}
-			if (note.color.equals("r")) {
+			if (note.color.equals("r") && note.yOffset < floor+25) {
 				g.drawImage(red, note.xPosition-4, note.yOffset, null);
 			}
-			if (note.color.equals("y")) {
+			if (note.color.equals("y") && note.yOffset < floor+25) {
 				g.drawImage(yellow, note.xPosition-4, note.yOffset, null);
 			}
-			if (note.color.equals("b")) {
+			if (note.color.equals("b") && note.yOffset < floor+25) {
 				g.drawImage(blue, note.xPosition-4, note.yOffset, null);
 			}
-			if (note.color.equals("o")) {
+			if (note.color.equals("o") && note.yOffset < floor+25) {
 				g.drawImage(orange, note.xPosition-4, note.yOffset, null);
+			}
+			if (note.yOffset > floor+25) {
+				g.drawImage(grey, note.xPosition-4, note.yOffset, null);
 			}
 
 		}
