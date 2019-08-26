@@ -17,6 +17,8 @@ public class GamePanel extends JPanel {
 
 	public static final DecimalFormat percentFormat = new DecimalFormat("0.00");
 	public static final int floor = 620;
+	public static int bg1 = 0;
+	public static int bg2 = -800;
     public static LinkedList<Note> allNotes = new LinkedList<>();
     public static LinkedList<Note> activeNotes = new LinkedList<>();
     public static LinkedList<GraphicNote> graphicNotes = new LinkedList<>();
@@ -29,7 +31,6 @@ public class GamePanel extends JPanel {
     public static Integer notesMissed = 0;
     public static JDialog summaryDialog =  new JDialog();
 
-	
 	private Image bg = new ImageIcon("resources/game_bg.png").getImage();
 	private Image green = new ImageIcon("resources/green_note.png").getImage();
 	private Image red = new ImageIcon("resources/red_note.png").getImage();
@@ -49,8 +50,6 @@ public class GamePanel extends JPanel {
         setPreferredSize(new Dimension(700,800));
         setBackground(new Color(11,11,15));
         setSize(new Dimension(700,800));
-        //JLabel imageLabel = new JLabel(new ImageIcon("resources/game_bg.png"));
-        //add(imageLabel);
 	}
 
 	public void prepareSong(Song song) {
@@ -132,7 +131,22 @@ public class GamePanel extends JPanel {
 
     public void updatePositions() {
 		ArrayList<GraphicNote> remove = new ArrayList<>();
-	    for (GraphicNote note : graphicNotes) {
+	    
+		if(bg1 >= 790) {
+			bg1 = -800;
+		}
+		else {
+			bg1 += 10;
+		}
+		
+		if(bg2 >= 790) {
+			bg2 = -800;
+		}
+		else {
+			bg2 += 10;
+		}
+		
+		for (GraphicNote note : graphicNotes) {
 			if (note.yOffset > 800) {
 				notesMissed = notesMissed + 1;
 				remove.add(note);
@@ -146,7 +160,8 @@ public class GamePanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
     	super.paintComponent(g);
-    	g.drawImage(bg, 0,0,null);
+    	g.drawImage(bg, 0,bg1,null);
+    	g.drawImage(bg, 0,bg2, null);
     	//draws 5 note buttons
     	g.drawImage(green_b,125 + 65, 630, null);
     	g.drawImage(red_b, 125 + 65*2, 630, null);
