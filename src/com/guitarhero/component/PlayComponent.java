@@ -18,7 +18,7 @@ public class PlayComponent {
     private static Integer highscore = 0;
     private static String path = "resources/test.png";
     private static JPanel parent = null;
-    private static Clip clip = null;
+    public static Clip clip = null;
     public static JButton play;
     private static boolean playing = false;
 

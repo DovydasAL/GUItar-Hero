@@ -3,9 +3,11 @@ package com.guitarhero.component;
 import com.guitarhero.entity.GraphicNote;
 import com.guitarhero.entity.Note;
 import com.guitarhero.entity.Song;
+import com.guitarhero.listener.CloseSummaryListener;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -13,12 +15,18 @@ import java.util.concurrent.TimeUnit;
 
 public class GamePanel extends JPanel {
 
+	public static final DecimalFormat percentFormat = new DecimalFormat("0.00");
     public static LinkedList<Note> allNotes = new LinkedList<>();
     public static LinkedList<Note> activeNotes = new LinkedList<>();
     public static LinkedList<GraphicNote> graphicNotes = new LinkedList<>();
     public static Integer score = 0;
     public static Integer multiplier = 1;
     public static Integer consecutiveNotes = 0;
+    public static Integer highestConsecutiveNotes = 0;
+    public static Integer notesHit = 0;
+    public static Integer totalNotes = 0;
+    public static Integer notesMissed = 0;
+    public static JDialog summaryDialog =  new JDialog();
 
 	
 	private Image bg = new ImageIcon("resources/game_bg.png").getImage();
@@ -44,6 +52,7 @@ public class GamePanel extends JPanel {
 	        allNotes.addLast(firstNote);
 	        firstNote = firstNote.getNextNote();
         }
+	    totalNotes = allNotes.size();
     }
 
     public void checkForNote(int millisecondsElapsed) {
@@ -58,6 +67,25 @@ public class GamePanel extends JPanel {
 	    updatePositions();
 		repaint();
     }
+
+    public static void displaySummary() {
+		summaryDialog = new JDialog();
+		JPanel panel = new JPanel();
+		JLabel score = new JLabel("Score: " + GamePanel.score);
+		JLabel consecutiveNotes = new JLabel("Highest Consecutive Notes: " + GamePanel.highestConsecutiveNotes);
+		JLabel missed = new JLabel("Notes Missed: " + notesMissed);
+		JLabel percentageHit = new JLabel("Percent of Notes Hit: " + percentFormat.format((double) GamePanel.notesHit / GamePanel.totalNotes));
+		JButton closeButton = new JButton("Close");
+		closeButton.addActionListener(new CloseSummaryListener());
+		panel.add(score);
+		panel.add(consecutiveNotes);
+		panel.add(missed);
+		panel.add(percentageHit);
+		panel.add(closeButton);
+		summaryDialog.add(panel);
+		summaryDialog.pack();
+		summaryDialog.setVisible(true);
+	}
    
     public static void createGamePanel(JPanel game) {
     	game.setLayout(new BoxLayout(game, BoxLayout.Y_AXIS));
@@ -75,10 +103,14 @@ public class GamePanel extends JPanel {
 			GraphicNote note = graphicNotes.get(i);
 			if (color.equals(note.color)) {
 				graphicNotes.remove(note);
+				if (consecutiveNotes > highestConsecutiveNotes) {
+					highestConsecutiveNotes = consecutiveNotes;
+				}
 				if (consecutiveNotes > 10) {
 					consecutiveNotes = 0;
 					multiplier = multiplier + 1;
 				}
+				notesHit = notesHit + 1;
 				consecutiveNotes = consecutiveNotes + 1;
 				score = score + 100 * multiplier;
 				return;
@@ -91,9 +123,16 @@ public class GamePanel extends JPanel {
 
 
     public void updatePositions() {
+		ArrayList<GraphicNote> remove = new ArrayList<>();
 	    for (GraphicNote note : graphicNotes) {
+			if (note.yOffset > 800) {
+				notesMissed = notesMissed + 1;
+				remove.add(note);
+				continue;
+			}
 	        note.yOffset = note.yOffset + 10;
 	    }
+	    graphicNotes.removeAll(remove);
     }
     
     @Override

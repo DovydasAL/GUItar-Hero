@@ -21,18 +21,10 @@ public class PlayButtonListener implements ActionListener {
         if (event.getActionCommand().equals("togglePlay")) {
             if (playing) {
                 playing = false;
-                for (JButton button : SongList.buttons) {
-                    button.setEnabled(true);
-                }
-                PlayComponent.play.setText("Play");
                 Main.stopGame();
 
             } else {
                 playing = true;
-                for (JButton button : SongList.buttons) {
-                    button.setEnabled(false);
-                }
-                PlayComponent.play.setText("Stop");
                 Main.startGame();
 
             }

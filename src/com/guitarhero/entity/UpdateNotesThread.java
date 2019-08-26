@@ -2,6 +2,7 @@ package com.guitarhero.entity;
 
 import com.guitarhero.Main;
 import com.guitarhero.component.GamePanel;
+import com.guitarhero.component.PlayComponent;
 
 import java.util.concurrent.TimeUnit;
 
@@ -9,7 +10,7 @@ import static com.guitarhero.Main.gamePanel;
 
 public class UpdateNotesThread implements Runnable {
 
-    public int millisecondsElapsed = 0;
+    public static int millisecondsElapsed = 0;
     public static boolean stop = false;
 
     public void setGamePanel() {
@@ -27,6 +28,9 @@ public class UpdateNotesThread implements Runnable {
                 System.out.println("Interrupted in checkForNote");
             }
             millisecondsElapsed = millisecondsElapsed + 50;
+            if (millisecondsElapsed * (Math.pow(10, 3))  > PlayComponent.clip.getMicrosecondLength()) {
+                Main.stopGame();
+            }
         }
     }
 
