@@ -22,6 +22,12 @@ public class GamePanel extends JPanel {
 
 	
 	private Image bg = new ImageIcon("resources/game_bg.png").getImage();
+	private Image green = new ImageIcon("resources/green_button.png").getImage();
+	private Image red = new ImageIcon("resources/red_button.png").getImage();
+	private Image yellow = new ImageIcon("resources/yellow_button.png").getImage();
+	private Image blue = new ImageIcon("resources/blue_button.png").getImage();
+	private Image orange = new ImageIcon("resources/orange_button.png").getImage();
+	
 
 	public GamePanel() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -82,30 +88,6 @@ public class GamePanel extends JPanel {
 		consecutiveNotes = 0;
 
 	}
-    
-    public static void drawnote(int note, Graphics g) {
-    	switch(note){
-    		case 1: 
-    			g.setColor(Color.GREEN);
-    		break;
-    		case 2:
-    			g.setColor(Color.RED);
-    		break;
-    		case 3:
-    			g.setColor(Color.yellow);
-    		break;
-    		case 4:
-    			g.setColor(Color.BLUE);
-    		break;
-    		case 5:
-    			g.setColor(Color.ORANGE);
-    		break;
-    	}
-    	
-    	g.fillOval(128 + 65*note, 0, 50, 50);
-    	g.setColor(Color.WHITE);
-    	g.fillOval(140 + 65*note, 12, 25, 25);
-    }
 
 
     public void updatePositions() {
@@ -118,48 +100,43 @@ public class GamePanel extends JPanel {
     public void paintComponent(Graphics g) {
     	super.paintComponent(g);
     	g.drawImage(bg, 0,0,null);
+    	
+    	
+    	
     	for (Note note : activeNotes) {
     	    if (note.isGreen()) {
-    	        drawnote(1, g);
     	        graphicNotes.addLast(new GraphicNote(128 + 65*1, "g"));
             }
     	    if (note.isRed()) {
-    	        drawnote(2, g);
                 graphicNotes.addLast(new GraphicNote(128 + 65*2, "r"));
             }
     	    if (note.isYellow()) {
-    	        drawnote(3, g);
                 graphicNotes.addLast(new GraphicNote(128 + 65*3, "y"));
             }
     	    if (note.isBlue()) {
-    	        drawnote(4,g);
                 graphicNotes.addLast(new GraphicNote(128 + 65*4, "b"));
             }
     	    if (note.isOrange()) {
-    	        drawnote(5,g);
                 graphicNotes.addLast(new GraphicNote(128 + 65*5, "o"));
             }
     	    activeNotes.remove(note);
         }
     	for (GraphicNote note : graphicNotes) {
 			if (note.color.equals("g")) {
-				g.setColor(Color.GREEN);
+				g.drawImage(green, note.xPosition-4, note.yOffset, null);
 			}
 			if (note.color.equals("r")) {
-				g.setColor(Color.RED);
+				g.drawImage(red, note.xPosition-4, note.yOffset, null);
 			}
 			if (note.color.equals("y")) {
-				g.setColor(Color.YELLOW);
+				g.drawImage(yellow, note.xPosition-4, note.yOffset, null);
 			}
 			if (note.color.equals("b")) {
-				g.setColor(Color.BLUE);
+				g.drawImage(blue, note.xPosition-4, note.yOffset, null);
 			}
 			if (note.color.equals("o")) {
-				g.setColor(Color.ORANGE);
+				g.drawImage(orange, note.xPosition-4, note.yOffset, null);
 			}
-			g.fillOval(note.xPosition, note.yOffset, 50, 50);
-			g.setColor(Color.WHITE);
-			g.fillOval(note.xPosition + 12, note.yOffset + 12, 25, 25);
 
 		}
     	g.drawString(score.toString(), 100, 100);
