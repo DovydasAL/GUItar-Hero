@@ -13,11 +13,11 @@ import java.util.concurrent.Flow;
 
 public class MenuOptionsListener implements MenuListener {
 
-    public static JTextField greenField = new JTextField(Settings.green,5);
-    public static JTextField redField = new JTextField(Settings.red,5);
-    public static JTextField yellowField = new JTextField(Settings.yellow,5);
-    public static JTextField blueField = new JTextField(Settings.blue,5);
-    public static JTextField orangeField = new JTextField(Settings.orange,5);
+    public static JTextField greenField = new JTextField(Settings.green,1);
+    public static JTextField redField = new JTextField(Settings.red,1);
+    public static JTextField yellowField = new JTextField(Settings.yellow,1);
+    public static JTextField blueField = new JTextField(Settings.blue,1);
+    public static JTextField orangeField = new JTextField(Settings.orange,1);
     public static JDialog dialog = new JDialog();
 
     public void menuSelected(MenuEvent event) {
@@ -27,17 +27,14 @@ public class MenuOptionsListener implements MenuListener {
                 return;
             }
             dialog = new JDialog(Main.frame, "Settings");
-            dialog.setPreferredSize(new Dimension(500,450));
-            JPanel panel = new JPanel(new GridLayout(0,2));
+            dialog.setPreferredSize(new Dimension(550,500));
+            dialog.setResizable(false);
+            JPanel panel = new JPanel(new GridBagLayout());
+            panel.setAlignmentX(Component.LEFT_ALIGNMENT);
+            GridBagConstraints c = new GridBagConstraints();
+            
             panel.setBackground(new Color(69,10,12));
-            try {
-    			panel.setFont(Font.createFont(Font.TRUETYPE_FONT, new File("resources/fonts/Quantico-Regular.ttf")));
-    			panel.setFont(panel.getFont().deriveFont(30.0f));
-    		} catch (FontFormatException e) {
-    			e.printStackTrace();
-    		} catch (IOException e) {
-    			e.printStackTrace();
-    		}
+            
             dialog.add(panel);
             JButton reset = new JButton("Reset to Default");
             reset.addActionListener(new ResetDefaultOptionsListener());
@@ -79,26 +76,75 @@ public class MenuOptionsListener implements MenuListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+            
+            greenField.setFont(greenField.getFont().deriveFont(25.0f));
+            redField.setFont(greenField.getFont().deriveFont(25.0f));
+            yellowField.setFont(greenField.getFont().deriveFont(25.0f));
+            blueField.setFont(greenField.getFont().deriveFont(25.0f));
+            orangeField.setFont(greenField.getFont().deriveFont(25.0f));
+            submit.setFont(greenField.getFont().deriveFont(20.0f));
+            cancel.setFont(greenField.getFont().deriveFont(20.0f));
+            reset.setFont(greenField.getFont().deriveFont(20.0f));
+            submit.setBackground(new Color(229,123,57));
+            cancel.setBackground(new Color(229,123,57));
+            reset.setBackground(new Color(229,123,57));
+            submit.setForeground(Color.black);
+            cancel.setForeground(Color.black);
+            reset.setForeground(Color.black);
+            submit.setBorder(BorderFactory.createLineBorder(new Color(229,123,57),8));
+            cancel.setBorder(BorderFactory.createLineBorder(new Color(229,123,57),8));
+            reset.setBorder(BorderFactory.createLineBorder(new Color(229,123,57),8));
+            
+            
+            
+            
             greenLabel.setHorizontalAlignment(SwingConstants.CENTER);
             redLabel.setHorizontalAlignment(SwingConstants.CENTER);
             yellowLabel.setHorizontalAlignment(SwingConstants.CENTER);
             blueLabel.setHorizontalAlignment(SwingConstants.CENTER);
             orangeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-
-            panel.add(greenLabel);
-            panel.add(greenField);
-            panel.add(redLabel);
-            panel.add(redField);
-            panel.add(yellowLabel);
-            panel.add(yellowField);
-            panel.add(blueLabel);
-            panel.add(blueField);
-            panel.add(orangeLabel);
-            panel.add(orangeField);
+            
+            
+            c.fill = GridBagConstraints.HORIZONTAL;
+            c.gridx = 0;
+            c.gridy = 0;
+            c.ipadx = 70;
+            panel.add(greenLabel,c);
+            c.gridx = 1;
+            c.gridy = 0;
+            c.weighty = 1;
+            panel.add(greenField,c);
+            c.gridx = 0;
+            c.gridy = 1;
+            panel.add(redLabel,c);
+            c.gridx = 1;
+            panel.add(redField,c);
+            c.gridx = 0;
+            c.gridy = 2;
+            panel.add(yellowLabel,c);
+            c.gridx = 1;
+            panel.add(yellowField,c);
+            c.gridx = 0;
+            c.gridy = 3;
+            panel.add(blueLabel,c);
+            c.gridx = 1;
+            panel.add(blueField,c);
+            c.gridx = 0;
+            c.gridy = 4;
+            panel.add(orangeLabel,c);
+            c.gridx = 1;
+            c.insets = new Insets(0,0,20,0);
+            panel.add(orangeField,c);
             panel.add(new JLabel(""));
-            panel.add(reset);
-            panel.add(cancel);
-            panel.add(submit);
+            c.gridx = 0;
+            c.gridy = 5;
+            c.ipadx = 0;
+            c.insets = new Insets(0,10,0,10);
+            panel.add(cancel,c);
+            c.gridx = 1;
+            panel.add(reset,c);
+            c.gridx = 2;
+            panel.add(submit,c);
             dialog.pack();
             dialog.setVisible(true);
 
