@@ -5,6 +5,7 @@ import com.guitarhero.entity.GraphicNote;
 import com.guitarhero.entity.Note;
 import com.guitarhero.entity.Song;
 import com.guitarhero.listener.CloseSummaryListener;
+import com.guitarhero.listener.PlayButtonListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -115,6 +116,9 @@ public class GamePanel extends JPanel {
     }
 
     public static void processKey(String color) {
+		if (!PlayButtonListener.playing) {
+			return;
+		}
 		Integer graphicNoteSize = graphicNotes.size();
 		int notes = (graphicNoteSize < 20) ? graphicNoteSize : 20;
 		
@@ -164,20 +168,21 @@ public class GamePanel extends JPanel {
 
     public void updatePositions() {
 		ArrayList<GraphicNote> remove = new ArrayList<>();
+		final int positionChange = 1;
 	    
 		//updates background
 		if(bg1 >= 790) {
 			bg1 = -800;
 		}
 		else {
-			bg1 += 10;
+			bg1 += positionChange;
 		}
 		
 		if(bg2 >= 790) {
 			bg2 = -800;
 		}
 		else {
-			bg2 += 10;
+			bg2 += positionChange;
 		}
 		
 		for (GraphicNote note : graphicNotes) {
@@ -188,7 +193,7 @@ public class GamePanel extends JPanel {
 				lastNotes.addFirst(0);
 				continue;
 			}
-	        note.yOffset = note.yOffset + 10;
+	        note.yOffset = note.yOffset + positionChange;
 	    }
 	    graphicNotes.removeAll(remove);
     }

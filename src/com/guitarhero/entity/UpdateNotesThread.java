@@ -23,11 +23,11 @@ public class UpdateNotesThread implements Runnable {
         while (!stop) {
             try {
                 Main.gamePanel.checkForNote(millisecondsElapsed);
-                TimeUnit.MILLISECONDS.sleep(50);
+                TimeUnit.MILLISECONDS.sleep(5);
             } catch (InterruptedException e) {
                 System.out.println("Interrupted in checkForNote");
             }
-            millisecondsElapsed = millisecondsElapsed + 50;
+            millisecondsElapsed = millisecondsElapsed + 5;
             if (millisecondsElapsed * (Math.pow(10, 3))  > PlayComponent.clip.getMicrosecondLength()) {
                 Main.stopGame();
             }

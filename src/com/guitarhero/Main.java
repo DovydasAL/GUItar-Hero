@@ -55,10 +55,10 @@ public class Main{
         Song song = SongList.selected;
         options.setEnabled(false);
         gamePanel.prepareSong(song);
+        PlayComponent.playSong(song.getWavFile());
         executorService = Executors.newCachedThreadPool();
         UpdateNotesThread checkForNote = new UpdateNotesThread();
         executorService.execute(checkForNote);
-        PlayComponent.playSong(song.getWavFile());
     }
 
     public static void stopGame() {
