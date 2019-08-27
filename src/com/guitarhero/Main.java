@@ -2,6 +2,7 @@ package com.guitarhero;
 
 import com.guitarhero.component.*;
 import com.guitarhero.entity.Settings;
+import com.guitarhero.entity.SettingsSerializable;
 import com.guitarhero.entity.Song;
 import com.guitarhero.entity.UpdateNotesThread;
 import com.guitarhero.listener.GuitarKeyAction;
@@ -10,7 +11,7 @@ import com.guitarhero.listener.PlayButtonListener;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
@@ -104,6 +105,71 @@ public class Main{
         frame.setJMenuBar(menuBar);
     }
 
+    public static void saveSettings() {
+        SettingsSerializable settingsSerializable = new SettingsSerializable();
+        settingsSerializable.red = Settings.red;
+        settingsSerializable.green = Settings.green;
+        settingsSerializable.yellow = Settings.yellow;
+        settingsSerializable.blue = Settings.blue;
+        settingsSerializable.orange = Settings.orange;
+        String file = "resources/data/settings.dat";
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(settingsSerializable);
+            objectOutputStream.close();
+            fileOutputStream.close();
+            System.out.println("Successfully saved settings");
+        } catch (IOException e) {
+            System.out.println("Failed to save settings to disk");
+        }
+
+    }
+
+    public static void loadSettings() {
+        String file = "resources/data/settings.dat";
+        SettingsSerializable settingsSerializable = new SettingsSerializable();
+        try {
+            FileInputStream fileInputStream = new FileInputStream(file);
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            settingsSerializable = (SettingsSerializable) objectInputStream.readObject();
+            objectInputStream.close();
+            fileInputStream.close();
+            Settings.red = settingsSerializable.red;
+            Settings.green = settingsSerializable.green;
+            Settings.yellow = settingsSerializable.yellow;
+            Settings.blue = settingsSerializable.blue;
+            Settings.orange = settingsSerializable.orange;
+            MenuOptionsListener.redField.setText(Settings.red);
+            MenuOptionsListener.greenField.setText(Settings.green);
+            MenuOptionsListener.yellowField.setText(Settings.yellow);
+            MenuOptionsListener.blueField.setText(Settings.blue);
+            MenuOptionsListener.orangeField.setText(Settings.orange);
+            System.out.println("Successfully loaded settings");
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Settings not found, generating new one");
+            try {
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+                objectOutputStream.writeObject(settingsSerializable);
+                objectOutputStream.close();
+                fileOutputStream.close();
+            } catch (IOException v) {
+                System.out.println("Failed to generate settings. Settings will not be saved");
+            }
+        }
+        mainScreen.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(Settings.red), "r");
+        mainScreen.getActionMap().put("r", new GuitarKeyAction());
+        mainScreen.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(Settings.green), "g");
+        mainScreen.getActionMap().put("g", new GuitarKeyAction());
+        mainScreen.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(Settings.yellow), "y");
+        mainScreen.getActionMap().put("y", new GuitarKeyAction());
+        mainScreen.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(Settings.blue), "b");
+        mainScreen.getActionMap().put("b", new GuitarKeyAction());
+        mainScreen.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(Settings.orange), "o");
+        mainScreen.getActionMap().put("o", new GuitarKeyAction());
+    }
+
     public static void main(String[] args) throws IOException, Exception {
         //Make frame non-resizable
         SongList.initializeSongs();
@@ -115,20 +181,10 @@ public class Main{
         mainScreen = new JPanel();
         mainScreen.setLayout(new GridBagLayout());
         mainScreen.setBackground(null);
-        mainScreen.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(Settings.red), "r");
-        mainScreen.getActionMap().put("r", new GuitarKeyAction());
-        mainScreen.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(Settings.green), "g");
-        mainScreen.getActionMap().put("g", new GuitarKeyAction());
-        mainScreen.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(Settings.yellow), "y");
-        mainScreen.getActionMap().put("y", new GuitarKeyAction());
-        mainScreen.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(Settings.blue), "b");
-        mainScreen.getActionMap().put("b", new GuitarKeyAction());
-        mainScreen.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(Settings.orange), "o");
-        mainScreen.getActionMap().put("o", new GuitarKeyAction());
         c = new GridBagConstraints();
         //Set preferred dimensions
         mainScreen.setPreferredSize(dimensions);
-
+        loadSettings();
         createMenuBar(frame);
         //Call function to add components to the screen
         createComponents();

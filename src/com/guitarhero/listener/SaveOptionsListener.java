@@ -54,6 +54,8 @@ public class SaveOptionsListener implements ActionListener {
             Settings.orange = MenuOptionsListener.orangeField.getText();
             Settings.blue = MenuOptionsListener.blueField.getText();
 
+            Main.saveSettings();
+
             //Put in the new key bindings
             Main.mainScreen.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(Settings.red), "r");
             Main.mainScreen.getActionMap().put("r", new GuitarKeyAction());
