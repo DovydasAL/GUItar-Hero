@@ -151,7 +151,7 @@ public class GamePanel extends JPanel{
 				if (consecutiveNotes > highestConsecutiveNotes) {
 					highestConsecutiveNotes = consecutiveNotes;
 				}
-				if (consecutiveNotes > 10) {
+				if (consecutiveNotes > 3) {
 					consecutiveNotes = 0;
 					multiplier = multiplier + 1;
 				}
@@ -191,12 +191,16 @@ public class GamePanel extends JPanel{
 		}
 		
 		for (GraphicNote note : graphicNotes) {
-			if (note.yOffset > 800) {
+			if (note.yOffset > 800 && !note.gray) {
 				notesMissed = notesMissed + 1;
 				remove.add(note);
 				lastNotes.removeFirstOccurrence(1);
 				lastNotes.addFirst(0);
 				continue;
+			}
+			if (note.yOffset > floor + 75) {
+				multiplier = 1;
+				note.setGray();
 			}
 	        note.yOffset = note.yOffset + positionChange;
 	    }
