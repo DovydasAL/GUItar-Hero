@@ -155,7 +155,9 @@ public class GamePanel extends JPanel{
 				}
 				if (consecutiveNotes > 3) {
 					consecutiveNotes = 0;
-					multiplier = multiplier + 1;
+					if (multiplier < 5) {
+						multiplier = multiplier + 1;
+					}
 				}
 				notesHit = notesHit + 1;
 				consecutiveNotes = consecutiveNotes + 1;
