@@ -10,6 +10,7 @@ import com.guitarhero.listener.MenuOptionsListener;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -45,6 +46,9 @@ public class Main{
         for (JButton button : SongList.buttons) {
             button.setEnabled(false);
         }
+        for (int i=0;i<50;i++) {
+            GamePanel.lastNotes.add(1);
+        }
         PlayComponent.play.setText("Stop");
         UpdateNotesThread.stop = false;
         Song song = SongList.selected;
@@ -70,6 +74,7 @@ public class Main{
         PlayComponent.play.setText("Play");
         UpdateNotesThread.stop = true;
         options.setEnabled(true);
+        GamePanel.lastNotes = new LinkedList<>();
         GamePanel.consecutiveNotes = 0;
         GamePanel.multiplier = 1;
         GamePanel.activeNotes = new LinkedList<>();
