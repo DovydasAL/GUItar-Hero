@@ -73,6 +73,10 @@ public class Main{
         for (JButton button : SongList.buttons) {
             button.setEnabled(true);
         }
+        if (GamePanel.score > SongList.selected.getHighScore()) {
+            SongList.selected.setHighScore(GamePanel.score);
+            SongList.saveHighScore(SongList.selected.getName());
+        }
         PlayButtonListener.playing = false;
         PlayComponent.play.setText("Play");
         UpdateNotesThread.stop = true;

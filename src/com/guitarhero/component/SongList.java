@@ -1,5 +1,6 @@
 package com.guitarhero.component;
 
+import com.guitarhero.entity.SettingsSerializable;
 import com.guitarhero.listener.SongButtonListener;
 import com.guitarhero.entity.Song;
 
@@ -7,9 +8,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.file.FileSystem;
 import java.util.*;
 
@@ -26,7 +25,56 @@ public class SongList {
     public static void initializeSongs() {
         File file = new File("resources/songs/Ransom.mid");
         Song song = Song.constructSong("Ransom", "Lil Tecca", Song.Genre.HIP_HOP, "resources/songs/Ransom.jpg", file, "resources/songs/Ransom.wav");
+        song.setHighScore(loadHighScore("Ransom"));
         songMap.put("Ransom", song);
+    }
+
+    public static void saveHighScore(String name) {
+        String file = "resources/data/" + name + ".dat";
+        Song song = songMap.get(name);
+        Integer highscore = 0;
+        if (song == null) {
+            System.out.println("Failed to save highscore for \"" + name + "\"");
+        }
+        highscore = song.getHighScore();
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(highscore);
+            objectOutputStream.close();
+            fileOutputStream.close();
+        } catch (IOException v) {
+            System.out.println("Failed to save highscore for \"" + name + "\"");
+        }
+    }
+
+    public static Integer loadHighScore(String name) {
+        String file = "resources/data/" + name + ".dat";
+        Integer highscore = 0;
+        try {
+            FileInputStream fileInputStream = new FileInputStream(file);
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            highscore = (Integer) objectInputStream.readObject();
+            objectInputStream.close();
+            fileInputStream.close();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Failed to find highscore for \"" + name + "\".");
+            try {
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+                objectOutputStream.writeObject(highscore);
+                objectOutputStream.close();
+                fileOutputStream.close();
+            } catch (IOException v) {
+                System.out.println("Failed to generate high score for \"" + name + "\". Highscores for this song will not persist");
+            }
+
+        }
+        if (highscore == null) {
+            return 0;
+        }
+        return highscore;
+
     }
 
     public static void createSongList(JPanel list) throws FontFormatException, IOException {
