@@ -6,6 +6,7 @@ import com.guitarhero.entity.Song;
 import com.guitarhero.entity.UpdateNotesThread;
 import com.guitarhero.listener.GuitarKeyAction;
 import com.guitarhero.listener.MenuOptionsListener;
+import com.guitarhero.listener.PlayButtonListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -71,6 +72,7 @@ public class Main{
         for (JButton button : SongList.buttons) {
             button.setEnabled(true);
         }
+        PlayButtonListener.playing = false;
         PlayComponent.play.setText("Play");
         UpdateNotesThread.stop = true;
         options.setEnabled(true);

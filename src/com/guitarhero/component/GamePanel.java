@@ -221,7 +221,7 @@ public class GamePanel extends JPanel {
 			if (sum < 26) {
 				Main.stopGame();
 			}
-			g.setColor(new Color( 400 - (int) (sum * 8), (int) (sum * 8) - 200, 0));
+			g.setColor(new Color(Math.max(0, 400 - (int) (sum * 8)), (int) Math.max(0, (sum * 8) - 200), 0));
 			g.fillRect(600, (int) Math.round(750 - 400 * ((sum - 25) / 50)), 50,  (int) Math.round(400 * ((sum - 25) / 50)));
 		}
     	
