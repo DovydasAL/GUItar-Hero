@@ -6,10 +6,12 @@ import com.guitarhero.entity.Song;
 import com.guitarhero.entity.UpdateNotesThread;
 import com.guitarhero.listener.GuitarKeyAction;
 import com.guitarhero.listener.MenuOptionsListener;
+import com.guitarhero.listener.PlayButtonListener;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -18,7 +20,7 @@ public class Main{
 
     private static final Dimension dimensions = new Dimension(1200,800);
     public static JPanel mainScreen;
-    private static JFrame frame;
+    public static JFrame frame;
     public static JMenu options;
     private static GridBagConstraints c;
     public static GamePanel gamePanel = new GamePanel();
@@ -45,15 +47,18 @@ public class Main{
         for (JButton button : SongList.buttons) {
             button.setEnabled(false);
         }
+        for (int i=0;i<50;i++) {
+            GamePanel.lastNotes.add(1);
+        }
         PlayComponent.play.setText("Stop");
         UpdateNotesThread.stop = false;
         Song song = SongList.selected;
         options.setEnabled(false);
         gamePanel.prepareSong(song);
+        PlayComponent.playSong(song.getWavFile());
         executorService = Executors.newCachedThreadPool();
         UpdateNotesThread checkForNote = new UpdateNotesThread();
         executorService.execute(checkForNote);
-        PlayComponent.playSong(song.getWavFile());
     }
 
     public static void stopGame() {
@@ -67,9 +72,11 @@ public class Main{
         for (JButton button : SongList.buttons) {
             button.setEnabled(true);
         }
+        PlayButtonListener.playing = false;
         PlayComponent.play.setText("Play");
         UpdateNotesThread.stop = true;
         options.setEnabled(true);
+        GamePanel.lastNotes = new LinkedList<>();
         GamePanel.consecutiveNotes = 0;
         GamePanel.multiplier = 1;
         GamePanel.activeNotes = new LinkedList<>();

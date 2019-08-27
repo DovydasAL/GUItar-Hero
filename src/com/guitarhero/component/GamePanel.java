@@ -1,9 +1,11 @@
 package com.guitarhero.component;
 
+import com.guitarhero.Main;
 import com.guitarhero.entity.GraphicNote;
 import com.guitarhero.entity.Note;
 import com.guitarhero.entity.Song;
 import com.guitarhero.listener.CloseSummaryListener;
+import com.guitarhero.listener.PlayButtonListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,6 +27,7 @@ public class GamePanel extends JPanel{
     public static LinkedList<Note> allNotes = new LinkedList<>();
     public static LinkedList<Note> activeNotes = new LinkedList<>();
     public static LinkedList<GraphicNote> graphicNotes = new LinkedList<>();
+    public static LinkedList<Integer> lastNotes = new LinkedList<>();
     public static Integer score = 0;
     public static Integer multiplier = 1;
     public static Integer consecutiveNotes = 0;
@@ -76,7 +79,7 @@ public class GamePanel extends JPanel{
 	    totalNotes = allNotes.size();
     }
 
-    public void checkForNote(int millisecondsElapsed) {
+    public void checkForNote(double millisecondsElapsed) {
 		Note nextNote = null; 
 		if (!allNotes.isEmpty()) {
 			nextNote = allNotes.getFirst();
@@ -118,6 +121,9 @@ public class GamePanel extends JPanel{
     }
 
     public static void processKey(String color) {
+		if (!PlayButtonListener.playing) {
+			return;
+		}
 		Integer graphicNoteSize = graphicNotes.size();
 		int notes = (graphicNoteSize < 20) ? graphicNoteSize : 20;
 		
@@ -152,9 +158,13 @@ public class GamePanel extends JPanel{
 				notesHit = notesHit + 1;
 				consecutiveNotes = consecutiveNotes + 1;
 				score = score + 100 * multiplier;
+				lastNotes.removeFirstOccurrence(0);
+				lastNotes.addFirst(1);
 				return;
 			}
 		}
+		lastNotes.removeFirstOccurrence(1);
+		lastNotes.addFirst(0);
 		multiplier = 1;
 		consecutiveNotes = 0;
 
@@ -163,29 +173,32 @@ public class GamePanel extends JPanel{
 
     public void updatePositions() {
 		ArrayList<GraphicNote> remove = new ArrayList<>();
+		final int positionChange = 1;
 	    
 		//updates background
 		if(bg1 >= 790) {
 			bg1 = -800;
 		}
 		else {
-			bg1 += 10;
+			bg1 += positionChange;
 		}
 		
 		if(bg2 >= 790) {
 			bg2 = -800;
 		}
 		else {
-			bg2 += 10;
+			bg2 += positionChange;
 		}
 		
 		for (GraphicNote note : graphicNotes) {
 			if (note.yOffset > 800) {
 				notesMissed = notesMissed + 1;
 				remove.add(note);
+				lastNotes.removeFirstOccurrence(1);
+				lastNotes.addFirst(0);
 				continue;
 			}
-	        note.yOffset = note.yOffset + 10;
+	        note.yOffset = note.yOffset + positionChange;
 	    }
 	    graphicNotes.removeAll(remove);
     }
@@ -218,7 +231,21 @@ public class GamePanel extends JPanel{
     	g.drawImage(buttons[2], 125 + 65*3, 630, null);
     	g.drawImage(buttons[3], 125 + 65*4, 630, null);
     	g.drawImage(buttons[4], 127 + 65*5, 630, null);
-    	
+		g.setColor(new Color(50, 50, 50));
+		g.fillRect(590, 540, 70, 220);
+    	g.setColor(new Color(100,100,100));
+    	g.fillRect(600,550,50,200);
+    	if (lastNotes.size() != 0) {
+			Double sum = 0.0;
+			for (int i=0;i<50;i++) {
+				sum = sum + lastNotes.get(i);
+			}
+			if (sum < 26) {
+				Main.stopGame();
+			}
+			g.setColor(new Color(Math.max(0, 400 - (int) (sum * 8)), (int) Math.max(0, (sum * 8) - 200), 0));
+			g.fillRect(600, (int) Math.round(750 - 400 * ((sum - 25) / 50)), 50,  (int) Math.round(400 * ((sum - 25) / 50)));
+		}
     	
     	
     	for (Note note : activeNotes) {
