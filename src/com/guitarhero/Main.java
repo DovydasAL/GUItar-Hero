@@ -57,7 +57,13 @@ public class Main{
     }
 
     public static void stopGame() {
-        GamePanel.displaySummary();
+        stopGame(true);
+    }
+
+    public static void stopGame(boolean showSummary) {
+        if (showSummary) {
+            GamePanel.displaySummary();
+        }
         for (JButton button : SongList.buttons) {
             button.setEnabled(true);
         }
@@ -73,6 +79,7 @@ public class Main{
         GamePanel.notesHit = 0;
         GamePanel.highestConsecutiveNotes = 0;
         GamePanel.notesMissed = 0;
+        GamePanel.score = 0;
         executorService.shutdownNow();
         PlayComponent.playSong(null);
 

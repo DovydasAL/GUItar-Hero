@@ -26,9 +26,15 @@ public class MenuOptionsListener implements MenuListener {
             dialog = new JDialog();
             JPanel panel = new JPanel(new GridLayout(0,2));
             dialog.add(panel);
+            JButton reset = new JButton("Reset to Default");
+            reset.addActionListener(new ResetDefaultOptionsListener());
+            reset.setActionCommand("Reset");
             JButton submit = new JButton("Save Settings");
             submit.addActionListener(new SaveOptionsListener());
             submit.setActionCommand("Save");
+            JButton cancel = new JButton("Cancel");
+            cancel.addActionListener(new CancelOptionsListener());
+            cancel.setActionCommand("Cancel");
             JLabel greenLabel = new JLabel("Green: ");
             JLabel redLabel = new JLabel("Red: ");
             JLabel yellowLabel = new JLabel("Yellow: ");
@@ -51,6 +57,8 @@ public class MenuOptionsListener implements MenuListener {
             panel.add(orangeLabel);
             panel.add(orangeField);
             panel.add(new JLabel(""));
+            panel.add(reset);
+            panel.add(cancel);
             panel.add(submit);
             dialog.pack();
             dialog.setVisible(true);
