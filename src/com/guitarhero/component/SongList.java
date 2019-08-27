@@ -57,6 +57,7 @@ public class SongList {
             highscore = (Integer) objectInputStream.readObject();
             objectInputStream.close();
             fileInputStream.close();
+            System.out.println("Successfully loaded highscore for \"" + name + "\"");
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Failed to find highscore for \"" + name + "\".");
             try {
@@ -65,6 +66,7 @@ public class SongList {
                 objectOutputStream.writeObject(highscore);
                 objectOutputStream.close();
                 fileOutputStream.close();
+                System.out.println("Successfully created new highscore for \"" + name + "\"");
             } catch (IOException v) {
                 System.out.println("Failed to generate high score for \"" + name + "\". Highscores for this song will not persist");
             }

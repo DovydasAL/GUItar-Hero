@@ -69,13 +69,17 @@ public class Main{
     public static void stopGame(boolean showSummary) {
         if (showSummary) {
             GamePanel.displaySummary();
+            Integer sum = 0;
+            for (int i=0;i<50;i++) {
+                sum = sum + GamePanel.lastNotes.get(i);
+            }
+            if (GamePanel.score > SongList.selected.getHighScore() && sum > 25) {
+                SongList.selected.setHighScore(GamePanel.score);
+                SongList.saveHighScore(SongList.selected.getName());
+            }
         }
         for (JButton button : SongList.buttons) {
             button.setEnabled(true);
-        }
-        if (GamePanel.score > SongList.selected.getHighScore()) {
-            SongList.selected.setHighScore(GamePanel.score);
-            SongList.saveHighScore(SongList.selected.getName());
         }
         PlayButtonListener.playing = false;
         PlayComponent.play.setText("Play");
