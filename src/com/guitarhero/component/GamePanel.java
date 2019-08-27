@@ -39,6 +39,8 @@ public class GamePanel extends JPanel {
 	private Image blue = new ImageIcon("resources/blue_note.png").getImage();
 	private Image orange = new ImageIcon("resources/orange_note.png").getImage();
 	private Image grey = new ImageIcon("resources/grey_note.png").getImage();
+	private Image crowd1 = new ImageIcon("resources/crowd_1.png").getImage();
+	private Image crowd2 = new ImageIcon("resources/crowd_2.png").getImage();
 	private static Image green_b = new ImageIcon("resources/green_button.png").getImage();
 	private static Image red_b = new ImageIcon("resources/red_button.png").getImage();
 	private static Image yellow_b = new ImageIcon("resources/yellow_button.png").getImage();
@@ -186,8 +188,13 @@ public class GamePanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
     	super.paintComponent(g);
-    	g.drawImage(bg, 0,bg1,null);
-    	g.drawImage(bg, 0,bg2, null);
+    	
+    	g.drawImage(crowd1,0,0,null);
+    	g.drawImage(crowd2,525,0,null);
+    	g.setColor(new Color(4,4,8));
+    	g.drawImage(bg, 182,bg1,null);
+    	g.drawImage(bg, 182,bg2, null);
+    	g.fillRect(182,floor+40, 345, 800-floor);
     	//draws 5 note buttons
     	g.drawImage(buttons[0],125 + 65, 630, null);
     	g.drawImage(buttons[1], 125 + 65*2, 630, null);
