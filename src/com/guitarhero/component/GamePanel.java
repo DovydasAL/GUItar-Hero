@@ -7,13 +7,15 @@ import com.guitarhero.listener.CloseSummaryListener;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.TimeUnit;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel{
 
 	public static final DecimalFormat percentFormat = new DecimalFormat("0.00");
 	public static final int floor = 620;
@@ -41,6 +43,7 @@ public class GamePanel extends JPanel {
 	private Image grey = new ImageIcon("resources/grey_note.png").getImage();
 	private Image crowd1 = new ImageIcon("resources/crowd_1.png").getImage();
 	private Image crowd2 = new ImageIcon("resources/crowd_2.png").getImage();
+	private Image multi = new ImageIcon("resources/multi.png").getImage();
 	private static Image green_b = new ImageIcon("resources/green_button.png").getImage();
 	private static Image red_b = new ImageIcon("resources/red_button.png").getImage();
 	private static Image yellow_b = new ImageIcon("resources/yellow_button.png").getImage();
@@ -60,6 +63,8 @@ public class GamePanel extends JPanel {
         setPreferredSize(new Dimension(700,800));
         setBackground(new Color(11,11,15));
         setSize(new Dimension(700,800));
+        
+        setFont(this.getFont().deriveFont(20.0f));
 	}
 
 	public void prepareSong(Song song) {
@@ -189,12 +194,24 @@ public class GamePanel extends JPanel {
     public void paintComponent(Graphics g) {
     	super.paintComponent(g);
     	
+    	//Backgrounds and stats
     	g.drawImage(crowd1,0,0,null);
     	g.drawImage(crowd2,525,0,null);
     	g.setColor(new Color(4,4,8));
     	g.drawImage(bg, 182,bg1,null);
     	g.drawImage(bg, 182,bg2, null);
     	g.fillRect(182,floor+40, 345, 800-floor);
+    	g.drawImage(multi,20,500, null);
+    	try {
+			g.setFont(Font.createFont(Font.TRUETYPE_FONT, new File("resources/fonts/Roddenberry Italic.ttf")));
+			g.setFont(g.getFont().deriveFont(40.0f));
+		} catch (FontFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
+    	
     	//draws 5 note buttons
     	g.drawImage(buttons[0],125 + 65, 630, null);
     	g.drawImage(buttons[1], 125 + 65*2, 630, null);
@@ -251,7 +268,10 @@ public class GamePanel extends JPanel {
     			g.drawImage(flames,125 + 65*(i+1), floor-20, null);
     		}
     	}
-    	g.drawString(score.toString(), 100, 100);
+    	
+    	g.setColor(Color.white);
+    	g.drawString(multiplier + "", 90,590);
+    	//g.drawString(score.toString(), 100, 100);
     	fire = new int[]{0,0,0,0,0};
     }
 
