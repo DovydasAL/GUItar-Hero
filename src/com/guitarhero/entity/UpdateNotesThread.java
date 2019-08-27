@@ -10,7 +10,7 @@ import static com.guitarhero.Main.gamePanel;
 
 public class UpdateNotesThread implements Runnable {
 
-    public static int millisecondsElapsed = 0;
+    public static double millisecondsElapsed = 0;
     public static boolean stop = false;
 
     public void setGamePanel() {
@@ -27,7 +27,7 @@ public class UpdateNotesThread implements Runnable {
             } catch (InterruptedException e) {
                 System.out.println("Interrupted in checkForNote");
             }
-            millisecondsElapsed = millisecondsElapsed + 3;
+            millisecondsElapsed = millisecondsElapsed + 3.4;
             if (millisecondsElapsed * (Math.pow(10, 3))  > PlayComponent.clip.getMicrosecondLength()) {
                 Main.stopGame();
             }

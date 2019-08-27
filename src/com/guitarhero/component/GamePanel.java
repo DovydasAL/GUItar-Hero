@@ -74,7 +74,7 @@ public class GamePanel extends JPanel {
 	    totalNotes = allNotes.size();
     }
 
-    public void checkForNote(int millisecondsElapsed) {
+    public void checkForNote(double millisecondsElapsed) {
 		Note nextNote = null; 
 		if (!allNotes.isEmpty()) {
 			nextNote = allNotes.getFirst();
