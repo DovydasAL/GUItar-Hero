@@ -90,7 +90,7 @@ public class GamePanel extends JPanel {
 		JLabel score = new JLabel("Score: " + GamePanel.score);
 		JLabel consecutiveNotes = new JLabel("Highest Consecutive Notes: " + GamePanel.highestConsecutiveNotes);
 		JLabel missed = new JLabel("Notes Missed: " + notesMissed);
-		JLabel percentageHit = new JLabel("Percent of Notes Hit: " + percentFormat.format((double) GamePanel.notesHit / GamePanel.totalNotes));
+		JLabel percentageHit = new JLabel("Percent of Notes Hit: " + percentFormat.format((double) GamePanel.notesHit / GamePanel.totalNotes * 100) + "%");
 		JButton closeButton = new JButton("Close");
 		closeButton.addActionListener(new CloseSummaryListener());
 		panel.add(score);
@@ -114,7 +114,7 @@ public class GamePanel extends JPanel {
 
     public static void processKey(String color) {
 		Integer graphicNoteSize = graphicNotes.size();
-		int notes = (graphicNoteSize < 5) ? graphicNoteSize : 5;
+		int notes = (graphicNoteSize < 20) ? graphicNoteSize : 20;
 		
 		switch(color) {
 			case "g": buttons[0] = green_down; break;

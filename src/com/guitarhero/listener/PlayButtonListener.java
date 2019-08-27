@@ -21,7 +21,7 @@ public class PlayButtonListener implements ActionListener {
         if (event.getActionCommand().equals("togglePlay")) {
             if (playing) {
                 playing = false;
-                Main.stopGame();
+                Main.stopGame(false);
 
             } else {
                 playing = true;
