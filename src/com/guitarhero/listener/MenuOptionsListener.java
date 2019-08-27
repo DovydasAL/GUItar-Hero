@@ -1,5 +1,6 @@
 package com.guitarhero.listener;
 
+import com.guitarhero.Main;
 import com.guitarhero.entity.Settings;
 
 import javax.swing.*;
@@ -23,7 +24,7 @@ public class MenuOptionsListener implements MenuListener {
             if (dialog.isVisible()) {
                 return;
             }
-            dialog = new JDialog();
+            dialog = new JDialog(Main.frame, "Settings");
             JPanel panel = new JPanel(new GridLayout(0,2));
             dialog.add(panel);
             JButton reset = new JButton("Reset to Default");

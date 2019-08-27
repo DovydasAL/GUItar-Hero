@@ -20,7 +20,7 @@ public class Main{
 
     private static final Dimension dimensions = new Dimension(1200,800);
     public static JPanel mainScreen;
-    private static JFrame frame;
+    public static JFrame frame;
     public static JMenu options;
     private static GridBagConstraints c;
     public static GamePanel gamePanel = new GamePanel();
