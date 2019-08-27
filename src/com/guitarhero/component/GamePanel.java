@@ -24,6 +24,7 @@ public class GamePanel extends JPanel{
 	public static int bg1 = 0;
 	public static int bg2 = -800;
 	public static int[] fire = {0,0,0,0,0};
+	public static int firestall = 0;
     public static LinkedList<Note> allNotes = new LinkedList<>();
     public static LinkedList<Note> activeNotes = new LinkedList<>();
     public static LinkedList<GraphicNote> graphicNotes = new LinkedList<>();
@@ -47,6 +48,7 @@ public class GamePanel extends JPanel{
 	private Image crowd1 = new ImageIcon("resources/crowd_1.png").getImage();
 	private Image crowd2 = new ImageIcon("resources/crowd_2.png").getImage();
 	private Image multi = new ImageIcon("resources/multi.png").getImage();
+	private Image score_keeper = new ImageIcon("resources/score.png").getImage();
 	private static Image green_b = new ImageIcon("resources/green_button.png").getImage();
 	private static Image red_b = new ImageIcon("resources/red_button.png").getImage();
 	private static Image yellow_b = new ImageIcon("resources/yellow_button.png").getImage();
@@ -218,9 +220,11 @@ public class GamePanel extends JPanel{
     	g.drawImage(bg, 182,bg1,null);
     	g.drawImage(bg, 182,bg2, null);
     	g.fillRect(182,floor+40, 345, 800-floor);
-    	g.drawImage(multi,20,500, null);
+    	g.drawImage(score_keeper,6,580,null);
+    	g.drawImage(multi,15,500, null);
+    	
     	try {
-			g.setFont(Font.createFont(Font.TRUETYPE_FONT, new File("resources/fonts/Roddenberry Italic.ttf")));
+			g.setFont(Font.createFont(Font.TRUETYPE_FONT, new File("resources/fonts/Quantico-Regular.ttf")));
 			g.setFont(g.getFont().deriveFont(40.0f));
 		} catch (FontFormatException e) {
 			e.printStackTrace();
@@ -292,18 +296,27 @@ public class GamePanel extends JPanel{
 
 		}
     	
-    	buttons = new Image[]{green_b,red_b,yellow_b,blue_b,orange_b};
     	
     	for(int i=0;i<5; i++) {
     		if(fire[i] > 0) {
     			g.drawImage(flames,125 + 65*(i+1), floor-20, null);
     		}
-    	}
-    	
+    	}  	
     	g.setColor(Color.white);
     	g.drawString(multiplier + "", 90,590);
-    	//g.drawString(score.toString(), 100, 100);
-    	fire = new int[]{0,0,0,0,0};
+    	g.setFont(g.getFont().deriveFont(32.0f));
+    	g.setColor(Color.black);
+    	g.drawString(score.toString(), 25, 697);
+    	
+    	//Draws temp images for longer
+    	if(firestall >= 30) {
+    		fire = new int[]{0,0,0,0,0};
+    		buttons = new Image[]{green_b,red_b,yellow_b,blue_b,orange_b};
+    		firestall = 0;
+    	}
+    	else {
+    		firestall ++;
+    	}
     }
 
 

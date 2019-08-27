@@ -52,7 +52,7 @@ public class SongList {
             button.addActionListener(new SongButtonListener());
             button.setBorderPainted(false);
             button.setFocusPainted(false);
-            button.setBackground(null);
+            button.setBackground(new Color(30,5,6));
             button.setForeground(Color.WHITE);
             button.setActionCommand(songName);
             buttons.add(button);

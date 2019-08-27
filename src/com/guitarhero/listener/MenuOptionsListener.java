@@ -7,6 +7,8 @@ import javax.swing.*;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.Flow;
 
 public class MenuOptionsListener implements MenuListener {
@@ -25,7 +27,17 @@ public class MenuOptionsListener implements MenuListener {
                 return;
             }
             dialog = new JDialog(Main.frame, "Settings");
+            dialog.setPreferredSize(new Dimension(500,450));
             JPanel panel = new JPanel(new GridLayout(0,2));
+            panel.setBackground(new Color(69,10,12));
+            try {
+    			panel.setFont(Font.createFont(Font.TRUETYPE_FONT, new File("resources/fonts/Quantico-Regular.ttf")));
+    			panel.setFont(panel.getFont().deriveFont(30.0f));
+    		} catch (FontFormatException e) {
+    			e.printStackTrace();
+    		} catch (IOException e) {
+    			e.printStackTrace();
+    		}
             dialog.add(panel);
             JButton reset = new JButton("Reset to Default");
             reset.addActionListener(new ResetDefaultOptionsListener());
@@ -41,6 +53,32 @@ public class MenuOptionsListener implements MenuListener {
             JLabel yellowLabel = new JLabel("Yellow: ");
             JLabel blueLabel = new JLabel("Blue: ");
             JLabel orangeLabel = new JLabel("Orange: ");
+            try {
+            	Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("resources/fonts/Roddenberry Italic.ttf"));
+            	Color textcolor = Color.white;
+            	greenLabel.setFont(customFont);
+				greenLabel.setFont(greenLabel.getFont().deriveFont(30.0f));
+				greenLabel.setForeground(textcolor);
+				redLabel.setFont(customFont);
+				redLabel.setFont(greenLabel.getFont().deriveFont(30.0f));
+				redLabel.setForeground(textcolor);
+				yellowLabel.setFont(customFont);
+				yellowLabel.setFont(greenLabel.getFont().deriveFont(30.0f));
+				yellowLabel.setForeground(textcolor);
+				blueLabel.setFont(customFont);
+				blueLabel.setFont(greenLabel.getFont().deriveFont(30.0f));
+				blueLabel.setForeground(textcolor);
+				orangeLabel.setFont(customFont);
+				orangeLabel.setFont(greenLabel.getFont().deriveFont(30.0f));
+				orangeLabel.setForeground(textcolor);
+				
+			} catch (FontFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
             greenLabel.setHorizontalAlignment(SwingConstants.CENTER);
             redLabel.setHorizontalAlignment(SwingConstants.CENTER);
             yellowLabel.setHorizontalAlignment(SwingConstants.CENTER);
