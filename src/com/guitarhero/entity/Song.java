@@ -96,7 +96,7 @@ public class Song {
                 track.remove(midiEvent);
                 i--;
             }
-            else if (((ShortMessage)  midiMessage).getData2() == 100) {
+            else if (((ShortMessage)  midiMessage).getData2() == 0) {
                 track.remove(midiEvent);
                 i--;
             }
@@ -148,7 +148,7 @@ public class Song {
             i = j - 1;
             System.out.print(timestamp + "\n");
             position.setNextNote(new Note());
-            position.setTimestamp(timestamp - 1500);
+            position.setTimestamp(timestamp);
             position = position.getNextNote();
         }
         song.setFirstNote(head);

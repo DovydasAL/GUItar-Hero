@@ -6,11 +6,13 @@ public class GraphicNote {
     public int xPosition;
     public boolean gray = false;
     public String color;
+    public long timestamp;
 
-    public GraphicNote(int xPosition, String color) {
+    public GraphicNote(int xPosition, String color, long timestamp) {
         this.yOffset = 0;
         this.xPosition = xPosition;
         this.color = color;
+        this.timestamp = timestamp;
     }
 
     public void setGray() {

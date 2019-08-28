@@ -102,9 +102,10 @@ public class GamePanel extends JPanel{
 		if (!allNotes.isEmpty()) {
 			nextNote = allNotes.getFirst();
 		}
-	    if (nextNote != null && nextNote.getTimestamp() < millisecondsElapsed) {
+	    while (nextNote != null && nextNote.getTimestamp() - 2040 < millisecondsElapsed) {
 	        activeNotes.addLast(nextNote);
 	        allNotes.remove(nextNote);
+	        nextNote = allNotes.getFirst();
         }
 	    updatePositions();
 //		repaint();
@@ -213,23 +214,23 @@ public class GamePanel extends JPanel{
 		while (activeIterator.hasNext()) {
 			Note note = (Note) activeIterator.next();
 			if (note.isGreen()) {
-				graphicNotes.addLast(new GraphicNote(128 + 65*1, "g"));
+				graphicNotes.addLast(new GraphicNote(128 + 65*1, "g", note.getTimestamp()));
 			}
 			if (note.isRed()) {
-				graphicNotes.addLast(new GraphicNote(128 + 65*2, "r"));
+				graphicNotes.addLast(new GraphicNote(128 + 65*2, "r", note.getTimestamp()));
 			}
 			if (note.isYellow()) {
-				graphicNotes.addLast(new GraphicNote(128 + 65*3, "y"));
+				graphicNotes.addLast(new GraphicNote(128 + 65*3, "y", note.getTimestamp()));
 			}
 			if (note.isBlue()) {
-				graphicNotes.addLast(new GraphicNote(128 + 65*4, "b"));
+				graphicNotes.addLast(new GraphicNote(128 + 65*4, "b", note.getTimestamp()));
 			}
 			if (note.isOrange()) {
-				graphicNotes.addLast(new GraphicNote(128 + 65*5, "o"));
+				graphicNotes.addLast(new GraphicNote(128 + 65*5, "o", note.getTimestamp()));
 			}
 			activeNotes.remove(note);
 		}
-		
+
 		ArrayList<GraphicNote> remove = new ArrayList<>();
 		Iterator iterator = graphicNotes.iterator();
 		while (iterator.hasNext()) {
