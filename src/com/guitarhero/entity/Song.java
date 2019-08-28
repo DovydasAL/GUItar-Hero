@@ -96,7 +96,7 @@ public class Song {
                 track.remove(midiEvent);
                 i--;
             }
-            else if (((ShortMessage)  midiMessage).getData2() == 0) {
+            else if (((ShortMessage)  midiMessage).getData2() == 100) {
                 track.remove(midiEvent);
                 i--;
             }

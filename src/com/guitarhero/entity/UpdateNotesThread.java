@@ -13,7 +13,7 @@ public class UpdateNotesThread implements Runnable {
     public static double millisecondsElapsed = 0;
     public static boolean stop = false;
 
-    public void setGamePanel() {
+    public UpdateNotesThread() {
         millisecondsElapsed = 0;
         stop = false;
     }
@@ -21,13 +21,13 @@ public class UpdateNotesThread implements Runnable {
     public void run() {
         millisecondsElapsed = 0;
         while (!stop) {
+            millisecondsElapsed = PlayComponent.clip.getMicrosecondPosition() / 1000;
             try {
                 Main.gamePanel.checkForNote(millisecondsElapsed);
                 TimeUnit.MILLISECONDS.sleep(3);
             } catch (InterruptedException e) {
                 System.out.println("Interrupted in checkForNote");
             }
-            millisecondsElapsed = PlayComponent.clip.getMicrosecondPosition() / 1000;
             if (millisecondsElapsed * (Math.pow(10, 3))  >= PlayComponent.clip.getMicrosecondLength()) {
                 Main.stopGame();
             }
