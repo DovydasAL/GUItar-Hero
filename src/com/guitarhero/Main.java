@@ -1,10 +1,7 @@
 package com.guitarhero;
 
 import com.guitarhero.component.*;
-import com.guitarhero.entity.Settings;
-import com.guitarhero.entity.SettingsSerializable;
-import com.guitarhero.entity.Song;
-import com.guitarhero.entity.UpdateNotesThread;
+import com.guitarhero.entity.*;
 import com.guitarhero.listener.GuitarKeyAction;
 import com.guitarhero.listener.MenuHelpListener;
 import com.guitarhero.listener.MenuOptionsListener;
@@ -26,7 +23,8 @@ public class Main{
     public static JMenu options;
     private static GridBagConstraints c;
     public static GamePanel gamePanel = new GamePanel();
-    public static ExecutorService executorService = Executors.newSingleThreadExecutor();
+    public static ExecutorService executorService1 = Executors.newSingleThreadExecutor();
+    public static ExecutorService executorService2 = Executors.newSingleThreadExecutor();
 
     public Main() {
     }
@@ -58,9 +56,12 @@ public class Main{
         options.setEnabled(false);
         gamePanel.prepareSong(song);
         PlayComponent.playSong(song.getWavFile());
-        executorService = Executors.newCachedThreadPool();
+        executorService1 = Executors.newSingleThreadExecutor();
+        executorService1 = Executors.newSingleThreadExecutor();
         UpdateNotesThread checkForNote = new UpdateNotesThread();
-        executorService.execute(checkForNote);
+        RepaintBoardThread repaintBoardThread = new RepaintBoardThread();
+        executorService1.execute(checkForNote);
+        executorService2.execute(repaintBoardThread);
     }
 
     public static void stopGame() {
@@ -85,6 +86,7 @@ public class Main{
         PlayButtonListener.playing = false;
         PlayComponent.play.setText("Play");
         UpdateNotesThread.stop = true;
+        RepaintBoardThread.stop = true;
         options.setEnabled(true);
         GamePanel.lastNotes = new LinkedList<>();
         GamePanel.consecutiveNotes = 0;
@@ -98,7 +100,8 @@ public class Main{
         GamePanel.multiplierConsecutiveNotes = 0;
         GamePanel.notesMissed = 0;
         GamePanel.score = 0;
-        executorService.shutdownNow();
+        executorService1.shutdownNow();
+        executorService2.shutdownNow();
         PlayComponent.playSong(null);
 
     }

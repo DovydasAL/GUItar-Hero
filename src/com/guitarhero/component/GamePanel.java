@@ -107,7 +107,7 @@ public class GamePanel extends JPanel{
 	        allNotes.remove(nextNote);
         }
 	    updatePositions();
-		repaint();
+//		repaint();
     }
 
     public static void displaySummary() {
@@ -208,6 +208,28 @@ public class GamePanel extends JPanel{
 		else {
 			bg2 += positionChange;
 		}
+
+		Iterator activeIterator = activeNotes.iterator();
+		while (activeIterator.hasNext()) {
+			Note note = (Note) activeIterator.next();
+			if (note.isGreen()) {
+				graphicNotes.addLast(new GraphicNote(128 + 65*1, "g"));
+			}
+			if (note.isRed()) {
+				graphicNotes.addLast(new GraphicNote(128 + 65*2, "r"));
+			}
+			if (note.isYellow()) {
+				graphicNotes.addLast(new GraphicNote(128 + 65*3, "y"));
+			}
+			if (note.isBlue()) {
+				graphicNotes.addLast(new GraphicNote(128 + 65*4, "b"));
+			}
+			if (note.isOrange()) {
+				graphicNotes.addLast(new GraphicNote(128 + 65*5, "o"));
+			}
+			activeNotes.remove(note);
+		}
+		
 		ArrayList<GraphicNote> remove = new ArrayList<>();
 		Iterator iterator = graphicNotes.iterator();
 		while (iterator.hasNext()) {
@@ -218,8 +240,8 @@ public class GamePanel extends JPanel{
 				consecutiveNotes = 0;
 				multiplierConsecutiveNotes = 0;
 				note.setGray();
-				lastNotes.removeFirstOccurrence(1);
-				lastNotes.addFirst(0);
+//				lastNotes.removeFirstOccurrence(1);
+//				lastNotes.addFirst(0);
 				continue;
 			}
 			if (note.yOffset > 800) {
@@ -278,26 +300,6 @@ public class GamePanel extends JPanel{
 			g.fillRect(600, (int) Math.round(750 - 400 * ((sum - 25) / 50)), 50,  (int) Math.round(400 * ((sum - 25) / 50)));
 		}
 
-    	Iterator activeIterator = activeNotes.iterator();
-		while (activeIterator.hasNext()) {
-			Note note = (Note) activeIterator.next();
-    	    if (note.isGreen()) {
-    	        graphicNotes.addLast(new GraphicNote(128 + 65*1, "g"));
-            }
-    	    if (note.isRed()) {
-                graphicNotes.addLast(new GraphicNote(128 + 65*2, "r"));
-            }
-    	    if (note.isYellow()) {
-                graphicNotes.addLast(new GraphicNote(128 + 65*3, "y"));
-            }
-    	    if (note.isBlue()) {
-                graphicNotes.addLast(new GraphicNote(128 + 65*4, "b"));
-            }
-    	    if (note.isOrange()) {
-                graphicNotes.addLast(new GraphicNote(128 + 65*5, "o"));
-            }
-    	    activeNotes.remove(note);
-        }
 		Iterator graphicIterator = graphicNotes.iterator();
     	while (graphicIterator.hasNext()) {
     		GraphicNote note = (GraphicNote) graphicIterator.next();
