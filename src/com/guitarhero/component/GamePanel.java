@@ -8,6 +8,7 @@ import com.guitarhero.listener.CloseSummaryListener;
 import com.guitarhero.listener.PlayButtonListener;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class GamePanel extends JPanel{
@@ -112,7 +114,7 @@ public class GamePanel extends JPanel{
 	        nextNote = allNotes.getFirst();
         }
 	    updatePositions();
-		repaint();
+//		repaint();
     }
 
     public static void displaySummary() {
@@ -138,15 +140,19 @@ public class GamePanel extends JPanel{
 	    	score.setFont(customFont);
 			score.setFont(score.getFont().deriveFont(30.0f));
 			score.setForeground(textcolor);
+			score.setBorder(new EmptyBorder(0,0,0,10));
 			consecutiveNotes.setFont(customFont);
 			consecutiveNotes.setFont(score.getFont().deriveFont(30.0f));
 			consecutiveNotes.setForeground(textcolor);
+			consecutiveNotes.setBorder(new EmptyBorder(0,0,0,10));
 			missed.setFont(customFont);
 			missed.setFont(score.getFont().deriveFont(30.0f));
 			missed.setForeground(textcolor);
+			missed.setBorder(new EmptyBorder(0,0,0,10));
 			percentageHit.setFont(customFont);
 			percentageHit.setFont(score.getFont().deriveFont(30.0f));
 			percentageHit.setForeground(textcolor);
+			percentageHit.setBorder(new EmptyBorder(0,0,0,10));
 			closeButton.setFont(customFont);
 			closeButton.setFont(score.getFont().deriveFont(30.0f));
 			closeButton.setBackground(new Color(229,123,57));
@@ -347,7 +353,8 @@ public class GamePanel extends JPanel{
     	//g.fillRect(585,550,50,200);
     	if (lastNotes.size() != 0) {
 			Double sum = 0.0;
-			Iterator lastNotesIterator = lastNotes.iterator();
+			CopyOnWriteArrayList lastNotesCopy = new CopyOnWriteArrayList(lastNotes);
+			Iterator lastNotesIterator = lastNotesCopy.iterator();
 			while (lastNotesIterator.hasNext()) {
 				Integer lastNote = (Integer) lastNotesIterator.next();
 				sum = sum + lastNote;
@@ -359,8 +366,8 @@ public class GamePanel extends JPanel{
 			g.fillRect(585, (int) Math.round(750 - 400 * ((sum - 25) / 50)), 60,  (int) Math.round(400 * ((sum - 25) / 50)));
 			g.drawImage(crowd_status,520,470, null);
     	}
-
-		Iterator graphicIterator = graphicNotes.iterator();
+		CopyOnWriteArrayList graphicNotesCopy = new CopyOnWriteArrayList(graphicNotes);
+		Iterator graphicIterator = graphicNotesCopy.iterator();
     	while (graphicIterator.hasNext()) {
     		GraphicNote note = (GraphicNote) graphicIterator.next();
 			if (note.color.equals("g") && note.yOffset < floor+25) {
