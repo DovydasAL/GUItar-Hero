@@ -33,7 +33,7 @@ public class SongList {
         songMap.put("Walkthisway", song);
         file = new File("resources/songs/Nineintheafternoon.mid");
         song = Song.constructSong(2, "9 In The Afternoon", "Panic at the Disco", Song.Genre.Rock, "resources/songs/Nineintheafternoon.jpg", file, "resources/songs/Nineintheafternoon.wav");
-        songMap.put("Nineintheafternoon", song);
+        songMap.put("9 In The Afternoon", song);
 
     }
 
