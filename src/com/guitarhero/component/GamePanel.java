@@ -105,10 +105,13 @@ public class GamePanel extends JPanel{
 	    while (nextNote != null && nextNote.getTimestamp() - 2040 < millisecondsElapsed) {
 	        activeNotes.addLast(nextNote);
 	        allNotes.remove(nextNote);
+	        if (allNotes.isEmpty()) {
+	        	break;
+			}
 	        nextNote = allNotes.getFirst();
         }
 	    updatePositions();
-//		repaint();
+		repaint();
     }
 
     public static void displaySummary() {
@@ -172,7 +175,7 @@ public class GamePanel extends JPanel{
 				}
 				if (multiplierConsecutiveNotes > 5) {
 					multiplierConsecutiveNotes = 0;
-					if (multiplier < 6) {
+					if (multiplier < 5) {
 						multiplier = multiplier + 1;
 					}
 				}

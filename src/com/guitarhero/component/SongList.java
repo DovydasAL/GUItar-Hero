@@ -24,13 +24,9 @@ public class SongList {
     
     public static void initializeSongs() {
         File file = new File("resources/songs/Ransom.mid");
-        Song song = Song.constructSong("Ransom", "Lil Tecca", Song.Genre.HIP_HOP, "resources/songs/Ransom.jpg", file, "resources/songs/Ransom.wav");
+        Song song = Song.constructSong(2,"Ransom", "Lil Tecca", Song.Genre.Hiphop, "resources/songs/Ransom.jpg", file, "resources/songs/Ransom.wav");
         song.setHighScore(loadHighScore("Ransom"));
         songMap.put("Ransom", song);
-        file = new File("resources/songs/Ransom2.mid");
-        song = Song.constructSong("Ransom2", "Lil Tecca", Song.Genre.HIP_HOP, "resources/songs/Ransom.jpg", file, "resources/songs/Ransom.wav");
-        song.setHighScore(loadHighScore("Ransom2"));
-        songMap.put("Ransom2", song);
     }
 
     public static void saveHighScore(String name) {

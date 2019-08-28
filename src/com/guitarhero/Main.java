@@ -24,7 +24,6 @@ public class Main{
     private static GridBagConstraints c;
     public static GamePanel gamePanel = new GamePanel();
     public static ExecutorService executorService1 = Executors.newSingleThreadExecutor();
-    public static ExecutorService executorService2 = Executors.newSingleThreadExecutor();
 
     public Main() {
     }
@@ -57,11 +56,8 @@ public class Main{
         gamePanel.prepareSong(song);
         PlayComponent.playSong(song.getWavFile());
         executorService1 = Executors.newSingleThreadExecutor();
-        executorService1 = Executors.newSingleThreadExecutor();
         UpdateNotesThread checkForNote = new UpdateNotesThread();
-        RepaintBoardThread repaintBoardThread = new RepaintBoardThread();
         executorService1.execute(checkForNote);
-        executorService2.execute(repaintBoardThread);
     }
 
     public static void stopGame() {
@@ -101,7 +97,6 @@ public class Main{
         GamePanel.notesMissed = 0;
         GamePanel.score = 0;
         executorService1.shutdownNow();
-        executorService2.shutdownNow();
         PlayComponent.playSong(null);
 
     }

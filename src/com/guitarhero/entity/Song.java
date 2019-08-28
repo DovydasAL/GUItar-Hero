@@ -3,12 +3,13 @@ package com.guitarhero.entity;
 import javax.sound.midi.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Song {
 
     public enum Genre {
-        ROCK, HIP_HOP, COUNTRY, METAL
+        Rock, Hiphop, Country, Metal
     }
 
     private String name;
@@ -89,7 +90,8 @@ public class Song {
     }
 
     public static Track filter(Track track) {
-        for (int i=0;i<track.size();i++) {
+        ArrayList<MidiEvent> toRemove = new ArrayList<>();
+        for (int i=0;i<track.size();i = i + 1) {
             MidiEvent midiEvent = track.get(i);
             MidiMessage midiMessage = midiEvent.getMessage();
             if (!(midiMessage instanceof ShortMessage)) {
@@ -100,11 +102,18 @@ public class Song {
                 track.remove(midiEvent);
                 i--;
             }
+            else if (midiEvent.getTick() + 1 == track.get(i + 1).getTick()) {
+                toRemove.add(midiEvent);
+                i = i + 1;
+            }
+        }
+        for (MidiEvent event : toRemove) {
+            track.remove(event);
         }
         return track;
     }
 
-    public static Song constructSong(String name, String artist, Genre genre, String image, File midFile, String mp3File) {
+    public static Song constructSong(Integer trackNumber, String name, String artist, Genre genre, String image, File midFile, String mp3File) {
         Song song = new Song(name, artist, genre, image, midFile, mp3File);
         song.setImage(image);
         Sequence sequence;
@@ -113,7 +122,6 @@ public class Song {
         } catch (InvalidMidiDataException | IOException e) {
             return null;
         }
-        final int trackNumber = 1;
         Track track = sequence.getTracks()[trackNumber];
         Note head = new Note();
         Note position = head;
@@ -122,7 +130,7 @@ public class Song {
             MidiEvent midiEvent = track.get(i);
             long timestamp = midiEvent.getTick();
             int j = i;
-            while (j < track.size() && track.get(j).getTick() == timestamp) {
+            while (j < track.size() && track.get(j).getTick() <= timestamp + 3) {
                 MidiEvent colorEvent = track.get(j);
                 ShortMessage colorMessage = (ShortMessage) colorEvent.getMessage();
                 String color = noteMap.get(colorMessage.getData1());
@@ -147,7 +155,7 @@ public class Song {
             }
             i = j - 1;
             position.setNextNote(new Note());
-            position.setTimestamp(timestamp - 1785);
+            position.setTimestamp(Math.round(timestamp * 2.6));
             position = position.getNextNote();
         }
         song.setFirstNote(head);
