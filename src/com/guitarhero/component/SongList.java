@@ -34,6 +34,8 @@ public class SongList {
         file = new File("resources/songs/Nineintheafternoon.mid");
         song = Song.constructSong(2, "9 In The Afternoon", "Panic at the Disco", Song.Genre.Rock, "resources/songs/Nineintheafternoon.jpg", file, "resources/songs/Nineintheafternoon.wav");
         songMap.put("9 In The Afternoon", song);
+        song.setHighScore(loadHighScore("9 In The After Noon"));
+
 
     }
 
