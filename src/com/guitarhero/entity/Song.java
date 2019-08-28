@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class Song {
 
     public enum Genre {
-        ROCK, HIP_HOP, COUNTRY, METAL
+        Rock, Hiphop, Country, Metal
     }
 
     private String name;
