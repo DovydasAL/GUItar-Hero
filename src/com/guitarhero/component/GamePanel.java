@@ -117,12 +117,45 @@ public class GamePanel extends JPanel{
 
     public static void displaySummary() {
 		summaryDialog = new JDialog();
-		JPanel panel = new JPanel();
+		summaryDialog.setPreferredSize(new Dimension(550,500));
+        summaryDialog.setResizable(false);
+		JPanel panel = new JPanel(new BoxLayout(summaryDialog, 0));
+		
+		panel.setBackground(new Color(4,8,12));
+		
 		JLabel score = new JLabel("Score: " + GamePanel.score);
 		JLabel consecutiveNotes = new JLabel("Highest Consecutive Notes: " + GamePanel.highestConsecutiveNotes);
 		JLabel missed = new JLabel("Notes Missed: " + notesMissed);
 		JLabel percentageHit = new JLabel("Percent of Notes Hit: " + percentFormat.format((double) GamePanel.notesHit / GamePanel.totalNotes * 100) + "%");
 		JButton closeButton = new JButton("Close");
+		
+		Font customFont;
+		try {
+			customFont = Font.createFont(Font.TRUETYPE_FONT, new File("resources/fonts/Roddenberry Italic.ttf"));
+			Color textcolor = Color.white;
+	    	score.setFont(customFont);
+			score.setFont(score.getFont().deriveFont(30.0f));
+			score.setForeground(textcolor);
+			consecutiveNotes.setFont(customFont);
+			consecutiveNotes.setFont(score.getFont().deriveFont(30.0f));
+			consecutiveNotes.setForeground(textcolor);
+			percentageHit.setFont(customFont);
+			percentageHit.setFont(score.getFont().deriveFont(30.0f));
+			percentageHit.setForeground(textcolor);
+			closeButton.setFont(customFont);
+			closeButton.setFont(score.getFont().deriveFont(30.0f));
+			closeButton.setForeground(textcolor);
+		} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+		
+		
+		
 		closeButton.addActionListener(new CloseSummaryListener());
 		panel.add(score);
 		panel.add(consecutiveNotes);
