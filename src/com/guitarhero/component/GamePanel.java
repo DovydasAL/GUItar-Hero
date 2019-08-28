@@ -117,9 +117,10 @@ public class GamePanel extends JPanel{
 
     public static void displaySummary() {
 		summaryDialog = new JDialog();
-		summaryDialog.setPreferredSize(new Dimension(550,500));
+		summaryDialog.setPreferredSize(new Dimension(500,600));
         summaryDialog.setResizable(false);
-		JPanel panel = new JPanel(new BoxLayout(summaryDialog, 0));
+		JPanel panel = new JPanel(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
 		
 		panel.setBackground(new Color(4,8,12));
 		
@@ -127,7 +128,8 @@ public class GamePanel extends JPanel{
 		JLabel consecutiveNotes = new JLabel("Highest Consecutive Notes: " + GamePanel.highestConsecutiveNotes);
 		JLabel missed = new JLabel("Notes Missed: " + notesMissed);
 		JLabel percentageHit = new JLabel("Percent of Notes Hit: " + percentFormat.format((double) GamePanel.notesHit / GamePanel.totalNotes * 100) + "%");
-		JButton closeButton = new JButton("Close");
+		JButton closeButton = new JButton("Return To Game");
+		JLabel summary = new JLabel(new ImageIcon("resources/summary.png"));
 		
 		Font customFont;
 		try {
@@ -139,12 +141,18 @@ public class GamePanel extends JPanel{
 			consecutiveNotes.setFont(customFont);
 			consecutiveNotes.setFont(score.getFont().deriveFont(30.0f));
 			consecutiveNotes.setForeground(textcolor);
+			missed.setFont(customFont);
+			missed.setFont(score.getFont().deriveFont(30.0f));
+			missed.setForeground(textcolor);
 			percentageHit.setFont(customFont);
 			percentageHit.setFont(score.getFont().deriveFont(30.0f));
 			percentageHit.setForeground(textcolor);
 			closeButton.setFont(customFont);
 			closeButton.setFont(score.getFont().deriveFont(30.0f));
-			closeButton.setForeground(textcolor);
+			closeButton.setBackground(new Color(229,123,57));
+			closeButton.setBorder(BorderFactory.createLineBorder(new Color(229,123,57),8));
+			closeButton.setForeground(Color.black);
+			closeButton.setFocusable(false);
 		} catch (FontFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -157,11 +165,25 @@ public class GamePanel extends JPanel{
 		
 		
 		closeButton.addActionListener(new CloseSummaryListener());
-		panel.add(score);
-		panel.add(consecutiveNotes);
-		panel.add(missed);
-		panel.add(percentageHit);
-		panel.add(closeButton);
+		c.fill = GridBagConstraints.VERTICAL;
+		c.gridx = 1;
+		c.gridy = 0;
+		c.insets = new Insets(0,0,15,0);
+		panel.add(summary,c);
+		c.insets = new Insets(0,0,0,0);
+		c.gridy = 1;
+		c.ipady = 20;
+		panel.add(score,c);
+		c.gridy = 2;
+		panel.add(consecutiveNotes,c);
+		c.gridy = 3;
+		panel.add(missed,c);
+		c.gridy = 4;
+		panel.add(percentageHit,c);
+		c.gridy = 5;
+		c.insets = new Insets(38,0,0,0);
+		c.ipadx = 30;
+		panel.add(closeButton,c);
 		summaryDialog.add(panel);
 		summaryDialog.pack();
 		summaryDialog.setVisible(true);
