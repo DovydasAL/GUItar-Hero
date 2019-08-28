@@ -108,7 +108,7 @@ public class GamePanel extends JPanel{
 	        nextNote = allNotes.getFirst();
         }
 	    updatePositions();
-//		repaint();
+		repaint();
     }
 
     public static void displaySummary() {

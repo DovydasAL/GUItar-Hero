@@ -59,9 +59,7 @@ public class Main{
         executorService1 = Executors.newSingleThreadExecutor();
         executorService1 = Executors.newSingleThreadExecutor();
         UpdateNotesThread checkForNote = new UpdateNotesThread();
-        RepaintBoardThread repaintBoardThread = new RepaintBoardThread();
         executorService1.execute(checkForNote);
-        executorService2.execute(repaintBoardThread);
     }
 
     public static void stopGame() {

@@ -130,7 +130,7 @@ public class Song {
             MidiEvent midiEvent = track.get(i);
             long timestamp = midiEvent.getTick();
             int j = i;
-            while (j < track.size() && track.get(j).getTick() == timestamp) {
+            while (j < track.size() && track.get(j).getTick() <= timestamp + 3) {
                 MidiEvent colorEvent = track.get(j);
                 ShortMessage colorMessage = (ShortMessage) colorEvent.getMessage();
                 String color = noteMap.get(colorMessage.getData1());
