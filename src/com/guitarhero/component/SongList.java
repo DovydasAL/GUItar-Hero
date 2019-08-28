@@ -31,6 +31,9 @@ public class SongList {
         song = Song.constructSong(2,"Walk This Way", "Aerosmith", Song.Genre.Rock, "resources/songs/Walkthisway.jpg", file, "resources/songs/Walkthisway.wav");
         song.setHighScore(loadHighScore("Walkthisway"));
         songMap.put("Walkthisway", song);
+        file = new File("resources/songs/Nineintheafternoon.mid");
+        song = Song.constructSong(2, "9 In The Afternoon", "Panic at the Disco", Song.Genre.Rock, "resources/songs/Nineintheafternoon.jpg", file, "resources/songs/Nineintheafternoon.wav");
+        songMap.put("Nineintheafternoon", song);
 
     }
 

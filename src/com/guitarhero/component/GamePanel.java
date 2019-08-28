@@ -51,6 +51,7 @@ public class GamePanel extends JPanel{
 	private Image crowd2 = new ImageIcon("resources/crowd_2.png").getImage();
 	private Image multi = new ImageIcon("resources/multi.png").getImage();
 	private Image score_keeper = new ImageIcon("resources/score.png").getImage();
+	private Image crowd_status = new ImageIcon("resources/bar.png").getImage();
 	private static Image green_b = new ImageIcon("resources/green_button.png").getImage();
 	private static Image red_b = new ImageIcon("resources/red_button.png").getImage();
 	private static Image yellow_b = new ImageIcon("resources/yellow_button.png").getImage();
@@ -244,8 +245,6 @@ public class GamePanel extends JPanel{
 				consecutiveNotes = 0;
 				multiplierConsecutiveNotes = 0;
 				note.setGray();
-//				lastNotes.removeFirstOccurrence(1);
-//				lastNotes.addFirst(0);
 				continue;
 			}
 			if (note.yOffset > 800) {
@@ -279,7 +278,6 @@ public class GamePanel extends JPanel{
 			e.printStackTrace();
 		}
     	
-    	
     	//draws 5 note buttons
     	g.drawImage(buttons[0],125 + 65, 630, null);
     	g.drawImage(buttons[1], 125 + 65*2, 630, null);
@@ -287,9 +285,9 @@ public class GamePanel extends JPanel{
     	g.drawImage(buttons[3], 125 + 65*4, 630, null);
     	g.drawImage(buttons[4], 127 + 65*5, 630, null);
 		g.setColor(new Color(50, 50, 50));
-		g.fillRect(590, 540, 70, 220);
+		//g.fillRect(575, 540, 70, 220);
     	g.setColor(new Color(100,100,100));
-    	g.fillRect(600,550,50,200);
+    	//g.fillRect(585,550,50,200);
     	if (lastNotes.size() != 0) {
 			Double sum = 0.0;
 			Iterator lastNotesIterator = lastNotes.iterator();
@@ -301,8 +299,9 @@ public class GamePanel extends JPanel{
 				Main.stopGame();
 			}
 			g.setColor(new Color(Math.max(0, 400 - (int) (sum * 8)), (int) Math.max(0, (sum * 8) - 200), 0));
-			g.fillRect(600, (int) Math.round(750 - 400 * ((sum - 25) / 50)), 50,  (int) Math.round(400 * ((sum - 25) / 50)));
-		}
+			g.fillRect(585, (int) Math.round(750 - 400 * ((sum - 25) / 50)), 60,  (int) Math.round(400 * ((sum - 25) / 50)));
+			g.drawImage(crowd_status,520,470, null);
+    	}
 
 		Iterator graphicIterator = graphicNotes.iterator();
     	while (graphicIterator.hasNext()) {
@@ -341,7 +340,7 @@ public class GamePanel extends JPanel{
     	g.drawString(score.toString(), 25, 697);
     	
     	//Draws temp images for longer
-    	if(firestall >= 30) {
+    	if(firestall >= 40) {
     		fire = new int[]{0,0,0,0,0};
     		buttons = new Image[]{green_b,red_b,yellow_b,blue_b,orange_b};
     		firestall = 0;
