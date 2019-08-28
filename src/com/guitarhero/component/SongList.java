@@ -29,12 +29,12 @@ public class SongList {
         songMap.put("Ransom", song);
         file = new File("resources/songs/Walkthisway.mid");
         song = Song.constructSong(2,"Walk This Way", "Aerosmith", Song.Genre.Rock, "resources/songs/Walkthisway.jpg", file, "resources/songs/Walkthisway.wav");
-        song.setHighScore(loadHighScore("Walkthisway"));
-        songMap.put("Walkthisway", song);
+        song.setHighScore(loadHighScore("Walk This Way"));
+        songMap.put("Walk This Way", song);
         file = new File("resources/songs/Nineintheafternoon.mid");
         song = Song.constructSong(2, "9 In The Afternoon", "Panic at the Disco", Song.Genre.Rock, "resources/songs/Nineintheafternoon.jpg", file, "resources/songs/Nineintheafternoon.wav");
         songMap.put("9 In The Afternoon", song);
-        song.setHighScore(loadHighScore("9 In The After Noon"));
+        song.setHighScore(loadHighScore("9 In The Afternoon"));
 
 
     }
