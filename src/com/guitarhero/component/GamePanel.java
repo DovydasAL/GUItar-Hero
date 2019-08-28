@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.TimeUnit;
@@ -32,6 +33,7 @@ public class GamePanel extends JPanel{
     public static Integer score = 0;
     public static Integer multiplier = 1;
     public static Integer consecutiveNotes = 0;
+    public static Integer multiplierConsecutiveNotes = 0;
     public static Integer highestConsecutiveNotes = 0;
     public static Integer notesHit = 0;
     public static Integer totalNotes = 0;
@@ -75,10 +77,24 @@ public class GamePanel extends JPanel{
 	public void prepareSong(Song song) {
 	    Note firstNote = song.getFirstNote();
 	    while (firstNote != null) {
-	        allNotes.addLast(firstNote);
+			allNotes.addLast(firstNote);
+			if (firstNote.isGreen()) {
+				totalNotes = totalNotes + 1;
+			}
+			if (firstNote.isRed()) {
+				totalNotes = totalNotes + 1;
+			}
+			if (firstNote.isYellow()) {
+				totalNotes = totalNotes + 1;
+			}
+			if (firstNote.isBlue()) {
+				totalNotes = totalNotes + 1;
+			}
+			if (firstNote.isOrange()) {
+				totalNotes = totalNotes + 1;
+			}
 	        firstNote = firstNote.getNextNote();
         }
-	    totalNotes = allNotes.size();
     }
 
     public void checkForNote(double millisecondsElapsed) {
@@ -87,7 +103,7 @@ public class GamePanel extends JPanel{
 			nextNote = allNotes.getFirst();
 		}
 	    if (nextNote != null && nextNote.getTimestamp() < millisecondsElapsed) {
-	        activeNotes.add(nextNote);
+	        activeNotes.addLast(nextNote);
 	        allNotes.remove(nextNote);
         }
 	    updatePositions();
@@ -127,7 +143,7 @@ public class GamePanel extends JPanel{
 			return;
 		}
 		Integer graphicNoteSize = graphicNotes.size();
-		int notes = (graphicNoteSize < 20) ? graphicNoteSize : 20;
+		Iterator iterator = graphicNotes.iterator();
 		
 		switch(color) {
 			case "g": buttons[0] = green_down; break;
@@ -137,9 +153,9 @@ public class GamePanel extends JPanel{
 			case "o": buttons[4] = orange_down; break;
 		}
 		
-		for (int i=0;i<notes;i++) {
-			GraphicNote note = graphicNotes.get(i);
-			if (color.equals(note.color) && note.yOffset > floor-25 && note.yOffset < floor+25) {
+		while (iterator.hasNext()) {
+			GraphicNote note = (GraphicNote) iterator.next();
+			if (color.equals(note.color) && note.yOffset > floor-30 && note.yOffset < floor+30) {
 				switch(note.color){
 					case "g": fire[0] = 1; break;
 					case "r": fire[1] = 1; break;
@@ -147,23 +163,23 @@ public class GamePanel extends JPanel{
 					case "b": fire[3] = 1; break;
 					case "o": fire[4] = 1; break;
 				}
-				
-				
+				consecutiveNotes = consecutiveNotes + 1;
+				multiplierConsecutiveNotes = multiplierConsecutiveNotes + 1;
 				graphicNotes.remove(note);
 				if (consecutiveNotes > highestConsecutiveNotes) {
 					highestConsecutiveNotes = consecutiveNotes;
 				}
-				if (consecutiveNotes > 3) {
-					consecutiveNotes = 0;
-					if (multiplier < 5) {
+				if (multiplierConsecutiveNotes > 5) {
+					multiplierConsecutiveNotes = 0;
+					if (multiplier < 6) {
 						multiplier = multiplier + 1;
 					}
 				}
 				notesHit = notesHit + 1;
-				consecutiveNotes = consecutiveNotes + 1;
 				score = score + 100 * multiplier;
-				lastNotes.removeFirstOccurrence(0);
-				lastNotes.addFirst(1);
+				if (lastNotes.removeFirstOccurrence(0)) {
+					lastNotes.addFirst(1);
+				}
 				return;
 			}
 		}
@@ -171,14 +187,13 @@ public class GamePanel extends JPanel{
 		lastNotes.addFirst(0);
 		multiplier = 1;
 		consecutiveNotes = 0;
+		multiplierConsecutiveNotes = 0;
 
 	}
 
 
     public void updatePositions() {
-		ArrayList<GraphicNote> remove = new ArrayList<>();
 		final int positionChange = 1;
-	    
 		//updates background
 		if(bg1 >= 790) {
 			bg1 = -800;
@@ -193,18 +208,22 @@ public class GamePanel extends JPanel{
 		else {
 			bg2 += positionChange;
 		}
-		
-		for (GraphicNote note : graphicNotes) {
-			if (note.yOffset > 800 && !note.gray) {
+		ArrayList<GraphicNote> remove = new ArrayList<>();
+		Iterator iterator = graphicNotes.iterator();
+		while (iterator.hasNext()) {
+			GraphicNote note = (GraphicNote) iterator.next();
+			if (note.yOffset > floor + 80 && !note.gray) {
+				multiplier = 1;
 				notesMissed = notesMissed + 1;
-				remove.add(note);
+				consecutiveNotes = 0;
+				multiplierConsecutiveNotes = 0;
+				note.setGray();
 				lastNotes.removeFirstOccurrence(1);
 				lastNotes.addFirst(0);
 				continue;
 			}
-			if (note.yOffset > floor + 75) {
-				multiplier = 1;
-				note.setGray();
+			if (note.yOffset > 800) {
+				remove.add(note);
 			}
 	        note.yOffset = note.yOffset + positionChange;
 	    }
@@ -247,8 +266,10 @@ public class GamePanel extends JPanel{
     	g.fillRect(600,550,50,200);
     	if (lastNotes.size() != 0) {
 			Double sum = 0.0;
-			for (int i=0;i<50;i++) {
-				sum = sum + lastNotes.get(i);
+			Iterator lastNotesIterator = lastNotes.iterator();
+			while (lastNotesIterator.hasNext()) {
+				Integer lastNote = (Integer) lastNotesIterator.next();
+				sum = sum + lastNote;
 			}
 			if (sum < 26) {
 				Main.stopGame();
@@ -256,9 +277,10 @@ public class GamePanel extends JPanel{
 			g.setColor(new Color(Math.max(0, 400 - (int) (sum * 8)), (int) Math.max(0, (sum * 8) - 200), 0));
 			g.fillRect(600, (int) Math.round(750 - 400 * ((sum - 25) / 50)), 50,  (int) Math.round(400 * ((sum - 25) / 50)));
 		}
-    	
-    	
-    	for (Note note : activeNotes) {
+
+    	Iterator activeIterator = activeNotes.iterator();
+		while (activeIterator.hasNext()) {
+			Note note = (Note) activeIterator.next();
     	    if (note.isGreen()) {
     	        graphicNotes.addLast(new GraphicNote(128 + 65*1, "g"));
             }
@@ -276,7 +298,9 @@ public class GamePanel extends JPanel{
             }
     	    activeNotes.remove(note);
         }
-    	for (GraphicNote note : graphicNotes) {
+		Iterator graphicIterator = graphicNotes.iterator();
+    	while (graphicIterator.hasNext()) {
+    		GraphicNote note = (GraphicNote) graphicIterator.next();
 			if (note.color.equals("g") && note.yOffset < floor+25) {
 				g.drawImage(green, note.xPosition-4, note.yOffset, null);
 			}

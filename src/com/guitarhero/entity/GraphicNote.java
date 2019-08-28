@@ -4,7 +4,7 @@ public class GraphicNote {
 
     public int yOffset;
     public int xPosition;
-    public boolean gray;
+    public boolean gray = false;
     public String color;
 
     public GraphicNote(int xPosition, String color) {

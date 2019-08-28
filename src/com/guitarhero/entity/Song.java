@@ -147,7 +147,7 @@ public class Song {
             }
             i = j - 1;
             position.setNextNote(new Note());
-            position.setTimestamp(timestamp);
+            position.setTimestamp(timestamp - 2040);
             position = position.getNextNote();
         }
         song.setFirstNote(head);

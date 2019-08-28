@@ -6,6 +6,7 @@ import com.guitarhero.entity.SettingsSerializable;
 import com.guitarhero.entity.Song;
 import com.guitarhero.entity.UpdateNotesThread;
 import com.guitarhero.listener.GuitarKeyAction;
+import com.guitarhero.listener.MenuHelpListener;
 import com.guitarhero.listener.MenuOptionsListener;
 import com.guitarhero.listener.PlayButtonListener;
 
@@ -94,6 +95,7 @@ public class Main{
         GamePanel.totalNotes = 0;
         GamePanel.notesHit = 0;
         GamePanel.highestConsecutiveNotes = 0;
+        GamePanel.multiplierConsecutiveNotes = 0;
         GamePanel.notesMissed = 0;
         GamePanel.score = 0;
         executorService.shutdownNow();
@@ -106,6 +108,7 @@ public class Main{
         options = new JMenu("Options");
         options.addMenuListener(new MenuOptionsListener());
         JMenu help = new JMenu("Help");
+        help.addMenuListener(new MenuHelpListener());
 //        JMenu loadFile = new JMenu("Load Song");
         menuBar.add(options);
         menuBar.add(help);
