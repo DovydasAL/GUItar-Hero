@@ -277,6 +277,8 @@ public class GamePanel extends JPanel{
 				notesMissed = notesMissed + 1;
 				consecutiveNotes = 0;
 				multiplierConsecutiveNotes = 0;
+				lastNotes.removeFirstOccurrence(1);
+				lastNotes.addFirst(0);
 				note.setGray();
 				continue;
 			}

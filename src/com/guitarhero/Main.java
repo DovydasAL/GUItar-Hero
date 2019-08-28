@@ -65,6 +65,8 @@ public class Main{
     }
 
     public static void stopGame(boolean showSummary) {
+        UpdateNotesThread.stop = true;
+        RepaintBoardThread.stop = true;
         if (showSummary) {
             GamePanel.displaySummary();
             Integer sum = 0;
@@ -81,8 +83,6 @@ public class Main{
         }
         PlayButtonListener.playing = false;
         PlayComponent.play.setText("Play");
-        UpdateNotesThread.stop = true;
-        RepaintBoardThread.stop = true;
         options.setEnabled(true);
         GamePanel.lastNotes = new LinkedList<>();
         GamePanel.consecutiveNotes = 0;
