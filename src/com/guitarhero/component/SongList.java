@@ -27,6 +27,11 @@ public class SongList {
         Song song = Song.constructSong(2,"Ransom", "Lil Tecca", Song.Genre.Hiphop, "resources/songs/Ransom.jpg", file, "resources/songs/Ransom.wav");
         song.setHighScore(loadHighScore("Ransom"));
         songMap.put("Ransom", song);
+        file = new File("resources/songs/Walkthisway.mid");
+        song = Song.constructSong(2,"Walk This Way", "Aerosmith", Song.Genre.Rock, "resources/songs/Walkthisway.jpg", file, "resources/songs/Walkthisway.wav");
+        song.setHighScore(loadHighScore("Walkthisway"));
+        songMap.put("Walkthisway", song);
+
     }
 
     public static void saveHighScore(String name) {
