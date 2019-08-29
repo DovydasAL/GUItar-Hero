@@ -110,7 +110,7 @@ public class SongList {
             JButton button = new JButton(song.getName() + "  |  " + song.getArtist());
             button.setFont(customFont.deriveFont(26.0f));
             button.addActionListener(new SongButtonListener());
-            button.setBorderPainted(false);
+            //button.setBorderPainted(false);
             button.setFocusPainted(false);
             button.setBackground(new Color(30,5,6));
             button.setForeground(Color.WHITE);

@@ -105,7 +105,7 @@ public class GamePanel extends JPanel{
 		if (!allNotes.isEmpty()) {
 			nextNote = allNotes.getFirst();
 		}
-	    while (nextNote != null && nextNote.getTimestamp() - 2040 < millisecondsElapsed) {
+	    while (nextNote != null && nextNote.getTimestamp() - 2240 < millisecondsElapsed) {
 	        activeNotes.addLast(nextNote);
 	        allNotes.remove(nextNote);
 	        if (allNotes.isEmpty()) {

@@ -60,10 +60,10 @@ public class PlayComponent {
 
     public static void updateText() {
         JPanel rightPanel = (JPanel) parent.getComponent(1);
-        ((JLabel) rightPanel.getComponent(0)).setText("Song: " + songName);
-        ((JLabel) rightPanel.getComponent(1)).setText("Artist: " + artist);
-        ((JLabel) rightPanel.getComponent(2)).setText("Genre: " + genre);
-        ((JLabel) rightPanel.getComponent(3)).setText("Highscore: " + highscore);
+        ((JLabel) rightPanel.getComponent(1)).setText("Song: " + songName);
+        ((JLabel) rightPanel.getComponent(2)).setText("Artist: " + artist);
+        ((JLabel) rightPanel.getComponent(3)).setText("Genre: " + genre);
+        ((JLabel) rightPanel.getComponent(4)).setText("Highscore: " + highscore);
         ((JLabel) parent.getComponent(0)).setIcon(new ImageIcon(path));
     }
     
@@ -86,10 +86,6 @@ public class PlayComponent {
         genreLabel.setBorder(new EmptyBorder(10,0,0,10));
         highScoreLabel.setBorder(new EmptyBorder(10,0,10,10));
         JButton playButton = new JButton("Play", new ImageIcon("resources/icons/play_guitar.png"));
-        playButton.setFocusPainted(false);
-        playButton.setBorderPainted(false);
-        playButton.setBackground(null);
-        playButton.setMargin(new Insets(0,190,0,0));
         playButton.addActionListener(new PlayButtonListener());
         playButton.setActionCommand("togglePlay");
         playButton.setEnabled(false);
@@ -101,16 +97,25 @@ public class PlayComponent {
         highScoreLabel.setFont(customFont.deriveFont(20.0f));
         playButton.setFont(customFont.deriveFont(20.0f));
         parent.add(imageLabel,0);
-        JPanel rightPanel = new JPanel();
+        JPanel rightPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
         rightPanel.setBackground(new Color(229,123,57));
         rightPanel.add(Box.createHorizontalGlue());
         rightPanel.setBorder(new EmptyBorder(0,20,0,0));
-        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
-        rightPanel.add(songNameLabel, 0);
-        rightPanel.add(artistLabel, 1);
-        rightPanel.add(genreLabel, 2);
-        rightPanel.add(highScoreLabel,3 );
-        rightPanel.add(playButton, 4);
+        //rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
+        c.gridx = 0;
+        c.gridy = 0;
+        c.anchor = GridBagConstraints.WEST;
+        rightPanel.add(songNameLabel, c);
+        c.gridy = 1;
+        rightPanel.add(artistLabel, c);
+        c.gridy = 2;
+        rightPanel.add(genreLabel, c);
+        c.gridy = 3;
+        rightPanel.add(highScoreLabel,c );
+        c.gridy = 4;
+        c.insets = new Insets(0,165,0,0);
+        rightPanel.add(playButton, c);
         parent.add(Box.createVerticalGlue());
         parent.add(rightPanel, 1);
     }
